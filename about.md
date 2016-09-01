@@ -4,12 +4,22 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+Got Electronic Engineering bachelor's degree but spent more time on learning everything about computer, software and their mechanism and mathematical basis. Know a number of languages, with some sorts of thoughts about various language constructs.
 
-You can find the source code for the Jekyll new theme at:
-{% include icon-github.html username="jglovier" %} /
-[jekyll-new](https://github.com/jglovier/jekyll-new)
+Self studied and studying computer science proactively in various MOOC platform, like [Coursera][coursera], [MITOCW][mitocw], iTunesU, [Stanford Online][stanonline], etc and have taken dozens of classes, if not hundreds, together with other materials.
 
-You can find the source code for Jekyll at
-{% include icon-github.html username="jekyll" %} /
-[jekyll](https://github.com/jekyll/jekyll)
+A list of languages:
+
+* C
+* Python
+* Java
+* Scala
+* Haskell
+
+Also a vim maniac.
+
+Currently live and work in Montreal, Canada.
+
+[coursera]: https://coursera.org
+[mitocw]: https://ocw.mit.edu
+[stanonline]: http://online.stanford.edu/
