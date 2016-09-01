@@ -1,11 +1,16 @@
 /**
  * Site header
  */
-.site-header {
-    // background-color: #A3DEFF;
+.site-header-nav {
+    background-color: $nav-color;
     border-top: 5px solid $grey-color-dark;
+}
+
+.site-header {
+    background-color: $head-color;
+    border-top: 1px solid $grey-color;
     border-bottom: 1px solid $grey-color-light;
-    min-height: 156px;
+    min-height: 106px;
 
     // Positioning context for the mobile navigation icon
     position: relative;
@@ -27,7 +32,7 @@
 
 .site-nav {
     float: right;
-    line-height: 86px;
+    line-height: 46px;
 
     .menu-icon {
         display: none;
