@@ -1,3 +1,17 @@
+.home {
+    padding-bottom: 30px;
+}
+
+.toc-content {
+    float: right;
+    right: 5%;
+    width: 13%;
+    background-color: $toc-color;
+    border: 1px solid $grey-color;
+    opacity: 0.7;
+    position: fixed;
+}
+
 /**
  * Site header
  */
@@ -97,7 +111,6 @@
         }
     }
 }
-
 
 
 /**
@@ -210,7 +223,7 @@
 }
 
 .post-tags {
-    float: left;
+    text-align: left;
     a {
         padding: 0 .3em;
         margin: .3em;
@@ -261,4 +274,24 @@
             font-size: 18px;
         }
     }
+}
+
+/**
+ * Pagination
+ */
+
+.pagination {
+    border-top: 1px solid $grey-color-light;
+    padding-top: 30px;
+    text-align: center;
+    font-size: 14px;
+    color: $grey-color-dark;
+}
+
+.pagination-prev {
+    float: left;
+}
+
+.pagination-next {
+    float: right;
 }

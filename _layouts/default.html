@@ -11,6 +11,11 @@
       <div class="wrapper">
         {{ content }}
       </div>
+
+      {% if layout.toc %}
+      {% include _widgets/right-panel.html %}
+      {% endif %}
+
     </div>
 
     {% include footer.html %}

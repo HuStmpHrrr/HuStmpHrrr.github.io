@@ -7,9 +7,11 @@ layout: default
   <h1 class="page-heading">Posts</h1>
 
   <ul class="post-list">
-    {% for post in site.posts %}
-    {% include _widgets/post-item.html %}
+    {% for post in paginator.posts %}
+      {% include _widgets/post-item.html %}
     {% endfor %}
   </ul>
 
 </div>
+
+{% include _widgets/pagination.html %}

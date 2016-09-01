@@ -1,0 +1,26 @@
+<div id="toc" class="toc-panel toc-content"></div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#toc').toc({'minimumHeaders': 1, 'title': '<p style="font-weight: bold">Bookmarks</p>'});
+    var tp       = $('#toc.toc-panel'),
+        wlim     = 1200,
+        init_pos = 250
+    if (tp[0].children.length != 0 && $(window).width() >= wlim) {
+      tp.css('display', 'block')
+    } else {
+      tp.css('display', 'none')
+    }
+    tp.css('top', init_pos)
+    $(window).scroll(function(){
+      tp.css("top",Math.max(140, init_pos - $(this).scrollTop()));
+    });
+    $(window).resize(function() {
+      if ($(window).width() < wlim) {
+        tp.css('display', 'none')
+      } else {
+        tp.css('display', 'block')
+      }
+    })
+});
+</script>
