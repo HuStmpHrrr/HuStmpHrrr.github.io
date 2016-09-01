@@ -7,18 +7,8 @@ layout: default
   <h1 class="page-heading">Posts</h1>
 
   <ul class="post-list">
-    {% for post in site.posts limit:10 %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-        <p class="post-excerpt">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}</p>
-        {% if post.tags != empty %}
-          <p class="post-tags">  tags: {{ post.tags | join: ", " }}</p>
-        {% endif %}
-      </li>
+    {% for post in site.posts %}
+    {% include _widgets/post-item.html %}
     {% endfor %}
   </ul>
 

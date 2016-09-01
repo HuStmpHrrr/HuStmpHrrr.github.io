@@ -209,7 +209,14 @@
     font-size: 24px;
 }
 
-
+.post-tags {
+    float: left;
+    a {
+        padding: 0 .3em;
+        margin: .3em;
+        background-color: #e6e6e6;
+    }
+}
 
 /**
  * Posts

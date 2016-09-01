@@ -1,0 +1,13 @@
+{% comment %}
+param:
+  post: the current post to display
+{% endcomment %}
+<li>
+  <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+
+  <h2>
+    <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+  </h2>
+  <p class="post-excerpt">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}</p>
+  {% include _widgets/post-tags.html %}
+</li>
