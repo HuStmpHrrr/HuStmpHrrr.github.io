@@ -5,11 +5,11 @@ $(document).ready(function() {
     $('#toc').toc({'minimumHeaders': 1, 'title': '<p style="font-weight: bold">Bookmarks</p>'});
     var tp       = $('#toc.toc-panel'),
         wlim     = 1200,
-        init_pos = 250
+        init_pos = 250;
     if (tp[0].children.length != 0 && $(window).width() >= wlim) {
-      tp.css('display', 'block')
+      tp.css('display', 'block');
     } else {
-      tp.css('display', 'none')
+      tp.css('display', 'none');
     }
     tp.css('top', init_pos)
     $(window).scroll(function(){
@@ -17,9 +17,9 @@ $(document).ready(function() {
     });
     $(window).resize(function() {
       if ($(window).width() < wlim) {
-        tp.css('display', 'none')
+        tp.css('display', 'none');
       } else {
-        tp.css('display', 'block')
+        tp.css('display', 'block');
       }
     })
 });
