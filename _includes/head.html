@@ -14,6 +14,13 @@
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <script src="{{ site.baseurl }}/assets/js/toc.js"></script>
+  {% comment %}
+  following will be code that trying to figure out the minimum subset of javascripts that are required
+  {% endcomment %}
+
+  {% assign loobj = layout %}
+  {% include _funcs/import-scripts-layout.html %}
+
+  {% assign jsobj = page.js %}
+  {% include _funcs/import-scripts.html %}
 </head>

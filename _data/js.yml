@@ -1,0 +1,7 @@
+- name: jquery
+  path: https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js
+
+
+# internal tools
+- name: toc
+  path: assets/js/toc.js

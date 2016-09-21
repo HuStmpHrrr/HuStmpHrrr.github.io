@@ -1,0 +1,6 @@
+{% for w in layout.widgets %}
+  {% include _widgets/{{ w }}.html %}
+{% endfor %}
+{% for w in page.widgets %}
+  {% include _widgets/{{ w }}.html %}
+{% endfor %}

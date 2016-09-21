@@ -1,3 +1,6 @@
+---
+js: jquery
+---
 <!DOCTYPE html>
 <html>
 
@@ -12,10 +15,7 @@
         {{ content }}
       </div>
 
-      {% if layout.toc %}
-      {% include _widgets/right-panel.html %}
-      {% endif %}
-
+      {% include widgets.html %}
     </div>
 
     {% include footer.html %}

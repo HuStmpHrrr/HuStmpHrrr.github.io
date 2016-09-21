@@ -11,7 +11,7 @@ $(document).ready(function() {
     } else {
       tp.css('display', 'none');
     }
-    tp.css('top', init_pos)
+    tp.css('top', Math.max(140, init_pos - $(this).scrollTop()));
     $(window).scroll(function(){
       tp.css("top",Math.max(140, init_pos - $(this).scrollTop()));
     });
