@@ -6,10 +6,10 @@ $(function() {
     posts.css('display', 'block');
     posts.filter(":not(." + target + ")")
       .css('display', 'none');
-    $('.tags-list').css('display', 'none');
+    //$('.tags-list').css('display', 'none');
     $('.tags-posts').css('display', 'block');
-    var title = `Posts of Tag <${tag}>`;
-    $('.post-title').text(title);
+    var title = `Posts of Tag: ${tag}`;
+    $('.tags-posts .post-title').text(title);
     document.title = title;
   }
 
@@ -25,9 +25,10 @@ $(function() {
     }
   }
 
-  var taglinks = $(".tags-posts > .post-list > li .post-tags > a");
+  var taglinks = $("a.tag-button");
   taglinks.attr('href', null);
   taglinks.click(function (e) {
-    filterByTag(e.target.text);
+    var target =$(e.target).closest('a.tag-button').clone().children().remove().end().text();
+    filterByTag(target);
   })
 })

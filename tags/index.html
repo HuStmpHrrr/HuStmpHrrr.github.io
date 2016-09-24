@@ -12,7 +12,7 @@ title: Tags
   <ul>
     {% for tag in site.tags %}
     <li>
-      <a href="{{ site.baseurl }}/tags/index.html?tag={{ tag[0] }}">{{ tag[0] }}<sup>{{ tag[1].size }}</sup></a>
+      <a class="tag-button" href="{{ site.baseurl }}/tags/index.html?tag={{ tag[0] }}">{{ tag[0] }}<sup>{{ tag[1].size }}</sup></a>
     </li>
     {% endfor %}
   </ul>
