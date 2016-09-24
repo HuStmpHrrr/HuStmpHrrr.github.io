@@ -8,3 +8,6 @@
 
 - name: tags-filter
   path: assets/js/tags-filter.js
+
+- name: sort-tags
+  path: assets/js/sort-tags.js

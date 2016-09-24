@@ -21,6 +21,6 @@
   {% assign loobj = layout %}
   {% include _funcs/import-scripts-layout.html %}
 
-  {% assign jsobj = page.js %}
+  {% assign jsobj = page.js | split: ' ' %}
   {% include _funcs/import-scripts.html %}
 </head>
