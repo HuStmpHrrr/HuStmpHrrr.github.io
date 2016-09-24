@@ -5,3 +5,6 @@
 # internal tools
 - name: toc
   path: assets/js/toc.js
+
+- name: tags-filter
+  path: assets/js/tags-filter.js

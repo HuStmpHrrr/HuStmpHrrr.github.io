@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Credit
+title: Credits
 nav: true
-permalink: /credit/
+permalink: /credits/
 ---
 
 Credits for my page:

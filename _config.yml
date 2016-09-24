@@ -17,5 +17,5 @@ github_username:  HuStmpHrrr
 # Build settings
 markdown: kramdown
 
-paginate: 2
+paginate: 20
 

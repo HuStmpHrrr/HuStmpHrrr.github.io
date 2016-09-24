@@ -1,5 +1,26 @@
 ---
 layout: default
+js: tags-filter
+nav: true
+title: Tags
 ---
 
-<p>tags are not yet supported!
+{% assign has-excerpt = false %}
+
+<div class="tags-list" style="display: block">
+  <h1 class="post-title" itemprop="name headline">List of Tags</h1>
+  <ul>
+    {% for tag in site.tags %}
+    <li>
+      <a href="{{ site.baseurl }}/tags/index.html?tag={{ tag[0] }}">{{ tag[0] }}<sup>{{ tag[1].size }}</sup></a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="tags-posts" style="display: none">
+  <!-- place holder shall be replaced -->
+  <h1 class="post-title" itemprop="name headline">!!place holder!!</h1>
+  {% assign posts = site.posts %}
+  {% include _widgets/post-items.html %}
+</div>

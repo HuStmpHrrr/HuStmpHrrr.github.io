@@ -1,14 +1,18 @@
 {% comment %}
 param:
   post: the current post to display
+  has-excerpt: defaulting true
 {% endcomment %}
 
-<li>
+{% assign tags = post.tags %}
+<li class="{% include _funcs/list-tags.html %}">
   <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
 
   <h2>
     <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
   </h2>
-  <p class="post-excerpt">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}</p>
+  {% if has-excerpt == null or has-excerpt %}
+    <p class="post-excerpt">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}</p>
+  {% endif %}
   {% include _widgets/post-tags.html %}
 </li>
