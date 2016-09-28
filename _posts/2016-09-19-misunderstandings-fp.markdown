@@ -109,8 +109,12 @@ Though this term is very ambiguous, as most people use it to mean([wiki][wikirt]
 > An expression is said to be referentially transparent if it can be replaced with its corresponding value without
 > changing the program's behavior.
 
-I will be interpreting this term using this definition. However, it's still common for people to take this concept
-in following wrong ways.
+I will be interpreting this term using this definition. However, when I mention the similar concept in other contexts,
+I believe `pure` is a much better term to reflect the mathematical meaning, and shorter,  or `combinator`(functions the
+output of which strictly depends on the inputs only) when functions are the main target instead of expressions 
+in the discussions. 
+
+Following ways are the ones common in which people can easily take it wrong.
 
 
 ### RT is not a language level property
@@ -119,7 +123,107 @@ It's very common for so-called functional programmers to talk about referential 
 sound that RT is only or mostly a FP feature and it's very difficult for you to identify and implement code that can
 be considered RT easily in, say, imperative languages like C. 
 
-It's false to say "C is not referentially transparent".
+In [HaskellWiki][haskwiki-rt]:
+
+> Referential transparency is an oft-touted property of (pure) functional languages,
+> which makes it easier to reason about the behavior of programs.
+
+The comment is inaccurate, and if we compare it with the definition from wikipedia, it has already given a feeling of why
+the concept of RT is ambiguous and understood in the same way by people as Hamlet. 
+
+It's false to say "C is not referentially transparent" or "functions in haskell are RT". In [this classic paper][fund-concept],
+the author discussed RT in an command based language model, which is imperative, by distinguishing L-value and R-value 
+and discribing the assignment as a state transition. Consequently, assignment operations become expressed by compositions 
+of state transition functions, which in fact can be well considered RT in the most common understanding of what RT should be,
+e.g.:
+
+```
+a := v1
+b := v2
+c := v3
+```
+
+and 
+
+```
+let theta l r sigma = U (L l sigma, R r sigma) sigma,
+
+where sigma is the global state
+      L     is the function that accesses the L-value of the expression l
+      R     is the function that accesses the R-value of the expression r
+      U     is the function that updates the R-value of L-value, and returns a new state
+```
+
+then we can transform the original sequence of "non-RT" assignments to
+
+```
+theta c v3 . theta b v2 . theta a v1,
+
+where . is the function composition function, and (f . g) x == f (g x)
+```
+
+So we have conquered the non-RTness of state transitions.
+
+In fact, all side effects always involve some global state transition which allows us to consider the process differently.
+For example, as simple as printing things to screen:
+
+```java
+System.out.println("hello world!");
+System.out.println("hello world!");
+```
+
+prints 2 lines of `hello world!` to the screen, and in general is considered producing side effect. However, if we decompose
+the function call sequence and think of it in a different way, this program can become:
+
+
+```java
+println(System.out, "hello world!");
+println(System.out, "hello world!");
+```
+
+which means a function that takes 2 parameters, and `System.out` is a global channel that eventually will connect to stdout.
+This way of looking at the code can be justified since this is what vtable will be doing anyways. Now, this printing effect
+has already turned into a sequence of RT state transitions:
+
+1. pass a string to an empty global channel
+1. then pass another string to a global channel which has a string in it already
+
+Looking up the definition in wiki, I can definitely replace the program with a `System.out` channel with 2 `hello world!`s in it
+without changing the behavior of the program. So printing is RT, Q.E.D.
+
+
+Doesn't that sound like bullshitting? Well, in the right case, state transition and side effect are interchangable. In haskell,
+there is a *deep magic* phantom type call `RealWorld` that does the exact thing I described previously([quote][hackage-rw]):
+
+> data RealWorld :: *
+>
+> RealWorld is deeply magical. It is primitive, but it is not unlifted (hence ptrArg). 
+> We never manipulate values of type RealWorld; it's only used in the type system, to parameterise State#.
+>
+> stToIO :: ST RealWorld a -> IO a
+>
+> A monad transformer embedding strict state transformers in the IO monad. The RealWorld parameter indicates
+> that the internal state used by the ST computation is a special one supplied by the IO monad, 
+> and thus distinct from those used by invocations of runST.
+
+For those new to Haskell, `ST` is a type of monad in haskell, meaning *S*tate *T*ransformer. The definition of `stToIO` 
+indicates that a sequence of state transition/transformation can eventually be converted to a side-effectful IO operation,
+which again states my previous argument. Depending on how the computation is modeled, the meaning of referencial transparancy 
+drifts so much, that we might make the conclusion that is true on both sides of the coin.
+
+
+Even if we focus the semantics on a single function, it's still not true to say only functions in certain languages are RT.
+In GCC, for instance, we are allowed to give an attribute to a function that serves as a hint to compiler, saying the function
+is `pure`, [quote][gcc-attr]:
+
+> Such a function can be subject to common subexpression elimination and loop optimization just as an arithmetic operator 
+> would be. These functions should be declared with the attribute pure. For example,
+>
+>          int square (int) __attribute__ ((pure));
+>
+> says that the hypothetical function square is safe to call fewer times than the program says. 
+
+In this aspect, saying RT being a language depedent property would not still be in favor.
 
 ### RT is a app wide concept
 
@@ -133,3 +237,7 @@ contextual
 [rtso2]: http://stackoverflow.com/questions/210835/what-is-referential-transparency/11740176#11740176
 [rust]: https://www.rust-lang.org/en-US/
 [wikirt]: https://en.wikipedia.org/wiki/Referential_transparency
+[haskwiki-rt]: https://wiki.haskell.org/Referential_transparency
+[fund-concept]: https://github.com/papers-we-love/papers-we-love/blob/master/plt/fundamental-concepts-in-programming-languages.pdf
+[hackage-rw]: http://hackage.haskell.org/package/base-4.9.0.0/docs/Control-Monad-ST.html#t:RealWorld
+[gcc-attr]: https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#Common-Function-Attributes
