@@ -59,7 +59,7 @@ public interface Function<T, R> {
 Essentially lambda expression in Java is just a simple way of writing implementation of single function interfaces.
 This is a very typical object oriented technique called *injection*, through an interface. Though the form is 
 a lambda expression, the essence of object orientation still doesn't help in terms of designing programs in a functional
-way.
+way. Lambda as a language construct is only a part of the fruits fp has.
 
 
 ## FP does not look like natural languages
@@ -100,9 +100,9 @@ A counter example of this would be [Rust][rust], which is an imparative language
 ## Referential Transparency
 
 Referential transparency(RT) is a very ambiguous and controversal concept which is very easy for people to misunderstand
-(or might not be able to be understood) but it's too innocent looking. There are a number of excellent StackOverflow 
+(or might not be able to be understood) with its sheerly innocent looking. There are a number of excellent StackOverflow 
 answers that talk about it, e.g. [don't say RT][rtso1] and [RT explained philosophically][rtso2], that kind of give the
-feeling of unprecision and bias of the most accepted interpretation of this term.
+feeling of imprecision and bias of the most accepted interpretation of this term.
 
 Though this term is very ambiguous, as most people use it to mean([wiki][wikirt]):
 
@@ -114,14 +114,18 @@ I believe `pure` is a much better term to reflect the mathematical meaning, and 
 output of which strictly depends on the inputs only) when functions are the main target instead of expressions 
 in the discussions. 
 
+It's very interesting to see only functional programmer mentioning this word, but it's fairly rare to see this word appear
+in those essential fp related literatures. That said, the concrete, rigorous definition of this concept in terms of fp 
+world is no where to be found(hence the controverse comes).
+
 Following ways are the ones common in which people can easily take it wrong.
 
 
-### RT is not a language level property
+### RT is not functional programming specific
 
 It's very common for so-called functional programmers to talk about referential transparency and they might make it
-sound that RT is only or mostly a FP feature and it's very difficult for you to identify and implement code that can
-be considered RT easily in, say, imperative languages like C. 
+sound that RT is only or mostly a FP feature and all other languages doesn't have this nice property at all since they
+follow the operational semantics, e.g. imperative languages like C. 
 
 In [HaskellWiki][haskwiki-rt]:
 
@@ -131,11 +135,16 @@ In [HaskellWiki][haskwiki-rt]:
 The comment is inaccurate, and if we compare it with the definition from wikipedia, it has already given a feeling of why
 the concept of RT is ambiguous and understood in the same way by people as Hamlet. 
 
-It's false to say "C is not referentially transparent" or "functions in haskell are RT". In [this classic paper][fund-concept],
+It's false to say "C cannot be referentially transparent" or "functions in haskell are RT". In [this classic paper][fund-concept],
 the author discussed RT in an command based language model, which is imperative, by distinguishing L-value and R-value 
-and discribing the assignment as a state transition. Consequently, assignment operations become expressed by compositions 
-of state transition functions, which in fact can be well considered RT in the most common understanding of what RT should be,
-e.g.:
+and discribing the assignment as a state transition. 
+
+> If we consider L-values as well as R-values, however, we can preserve referential transparency
+> as far as L-values are concerned. This is because L-values, being generalised addresses, 
+> are not altered by assignment commands.
+
+Consequently, assignment operations become expressed by compositions of state transition functions, which in fact
+can be well considered RT in the most common understanding of what RT should be, e.g.:
 
 ```
 a := v1
@@ -146,7 +155,8 @@ c := v3
 and 
 
 ```
-let theta l r sigma = U (L l sigma, R r sigma) sigma,
+let 
+    theta l r sigma = U (L l sigma, R r sigma) sigma
 
 where sigma is the global state
       L     is the function that accesses the L-value of the expression l
@@ -162,37 +172,21 @@ theta c v3 . theta b v2 . theta a v1,
 where . is the function composition function, and (f . g) x == f (g x)
 ```
 
-So we have conquered the non-RTness of state transitions.
-
-In fact, all side effects always involve some global state transition which allows us to consider the process differently.
-For example, as simple as printing things to screen:
+Thus RTness in imperative can be totally explained by separate the consideration fo L-value and R-value. In this sense, 
+we can reason following sequence of commands:
 
 ```java
-System.out.println("hello world!");
-System.out.println("hello world!");
+int a = 10, b = 20;
+a++;
+b -= a;
 ```
 
-prints 2 lines of `hello world!` to the screen, and in general is considered producing side effect. However, if we decompose
-the function call sequence and think of it in a different way, this program can become:
+this sequence of commands stores 2 new R-values to 2 already existing 2 L-values in the store, respectively. The stores 
+remain the same ones, obviously, and the assignments are the state transitions that happen to the stores. In this sense,
+the value of assignment operation becomes the state transition function similar to the one previously shown.
 
 
-```java
-println(System.out, "hello world!");
-println(System.out, "hello world!");
-```
-
-which means a function that takes 2 parameters, and `System.out` is a global channel that eventually will connect to stdout.
-This way of looking at the code can be justified since this is what vtable will be doing anyways. Now, this printing effect
-has already turned into a sequence of RT state transitions:
-
-1. pass a string to an empty global channel
-1. then pass another string to a global channel which has a string in it already
-
-Looking up the definition in wiki, I can definitely replace the program with a `System.out` channel with 2 `hello world!`s in it
-without changing the behavior of the program. So printing is RT, Q.E.D.
-
-
-Doesn't that sound like bullshitting? Well, in the right case, state transition and side effect are interchangable. In haskell,
+Doesn't that sound like bullshitting? Well, in the right case, state transition and assignment are interchangable. In haskell,
 there is a *deep magic* phantom type call `RealWorld` that does the exact thing I described previously([quote][hackage-rw]):
 
 > data RealWorld :: *
@@ -223,11 +217,48 @@ is `pure`, [quote][gcc-attr]:
 >
 > says that the hypothetical function square is safe to call fewer times than the program says. 
 
-In this aspect, saying RT being a language depedent property would not still be in favor.
+The mistaken part of the understanding here is to consider only languages with denotational meanings can be RT, and most of 
+non-functional languages are operational, meaning programs in these languages executed based on a sequence of commands. 
+In this aspect, saying RT being a language depedent property would not still be in favor, not to mention tying this property
+to functional programming languages alone.
 
-### RT is a app wide concept
+### RT is about expressions
 
-contextual
+The introduction of RT to programming languages brings mathematical analysis of the behavior of the software, and very 
+interestingly, RT/purity is not even a thing in math since they come by nature. In the whole world of mathematics, not
+only functions are RT but also every expressions(many people use many words, like referents, denotations, etc).
+
+```
+1 + (2 * 3)
+```
+and
+
+```
+1 + 6
+```
+
+and
+
+```
+7
+```
+
+are exactly the **same**, and in functional programming languages, they are undistinguishable. The definition of **same**
+needs to be clarified: 2 objects are the same if and only if they denote the same mathematical object. No wonder, nobody
+can argue that all 3 expressions above denote different mathematical meaning than any others.
+
+The common misunderstanding here comes into 2 ways:
+
+1. stating RT is **value** related. It's probably due to terminology abusement that value here is a overloaded word. But 
+the use here sends a wrong signals to people that RT is a decription of evaluation process. It's fundamentally wrong in
+terms of mathematical sense, since `3 + 4` is also `7`, but there no way for this expression appear in the evaluation 
+path of any of the first 2 expressions. However, RT allows us to substibute any expression to any other one within
+the universe of equivalence. Only considering evaluation happens to be so superficial that only two out of infinity are
+taken into account.
+
+2. stating RT is about **functions**. As functions can also be a part of expressions, by looking at expressions, we definitely
+cover the cases for functions. However, the other way around only considers the subset of it. Fun enough, the argument
+of RTness of a function holds only provided all the expressions in the definition body satisfy RT.
 
 
 [stream-map]: https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#map-java.util.function.Function-
