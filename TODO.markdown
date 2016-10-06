@@ -216,6 +216,65 @@ A list of todo topics
   catamorphism: recursion. fold, each iteration reduces the corresponding element and accumulate
   anamorphism: corecursion. unfold, each iteration generates an element according to the previous element
 
+* how more general the type system in scala is compared to the one in haskell
+
+  there are a number of things if we allow inheritence in the type system like scala. with the power of traits,
+  we can further separate logic from data to exercise a better level of software design. it's very interesting to see
+  in scala community, in terms of type system, most people try very hard to port existing functionality in haskell into
+  the scala library. fine though, i think it's much better if we can explore more and find out that's the extra thing 
+  we can do in scala language.
+
+  it turns out that with inheritence taken into account, all of sudden we introduces the partial ordering relationship
+  into the type system. this immediately breaks the classic unification algorithm, which solves symbolic equalities, 
+  whilst scala types relations are inequalities now.
+
+  also noticing that, scala type system is actually a complete lattice, with `Any` as the unique supremum, and `Nothing`
+  to be the unique infimum. compared to haskell type system, which actually has no partial ordering relation, and typical
+  OO type system, which has no infimum in the types and less power in the system, scala type system is actually the most
+  advanced and complex one, but also be capable of describing data relations freely and soundly. satisfying this property,
+  we can actually introduce abstract algebra to the analysis of the type system.
+
+  noticing the nature of (complete) lattice in the scala type system, it's very straightforward to conclude that for
+  a set of type relation, it's practically good if we also construct the subset of those types to form a complete lattice.
+  since `Nothing` will automatically become the infimum of the lattice, the only thing we need to do is guarantee a
+  supremum exists.
+
+  for example, we start with following relation
+
+  ```scala
+  trait Property
+
+  trait Owner[P <: Property]
+  ```
+  it represents the `Owner` of certain type of `Property`. however, generic type `P` being invariance borthers a lot, since
+  there is no supremum for this poset. if we are sure that we need this generics(depending on the design purpose, in a trait
+  driven principle, this kind of generics can very often be moved up to a higher level), there are 2 ways of fixing it
+
+  make `P` covariant:
+
+  ```scala
+  trait Owner[+P <: Property]
+  ```
+
+  this solution is much preferred. it naturally makes `Owner[Property]` be the supremum and the poset forms a lattice.
+
+  or defining a trait without generic:
+
+  ```scala
+  trait GOwner
+
+  trait Owner[P <: Property] extends GOwner
+  ```
+
+  but this solution indicates a problem. what prevents us from making `P` covariant is probably it's used somewhere in a contravariant
+  position. this sets a flag for design flaw, since `GOwner` is most likely very useless, probably just to introduce a supremum. It's
+  very helpful to use some mathematical principle to verify the design and overlap theory and the practice.
+
+
+  that said, it's not necessary to say we must have complete lattice in our type relations but just preferred. sometimes it's a complex
+  tradeoff. e.g. `Set[C]` is invariant as `C` appears in a contravariant position. so which one you prefer, guarding checking the existence
+  of a totally unrelated object in a set, or allow `Set[C]` being able to perform upcast? this is reality. this is life. life is so hard.
+
 
 * experience in the industry
 
