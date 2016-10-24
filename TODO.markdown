@@ -385,6 +385,101 @@ A list of todo topics
   actual representation of the data structure from the comparison of the meaning of it. in fp, we just focus on the 
   denotation of a program. on the other hand, in imperative language, we have to be concerned about the operational effect.
 
+* functional programming and lambda calculi
+
+  the idea of functional programming and one of imperative/OO programming are fundamentally different. in the first place,
+  fp are developed based on either lambda calculi or combinatory logic(mathematical modeling that allows vanilla mathematical
+  analysis to the program), while imperative/OO are based on turing machine(a more command based, engineering oriented
+  computational model).
+
+  a very distinct difference between these 2 is the concept of data and logic. for instance, a tuple is a cell that has 2 fields,
+  each of which contains it's own data and there is no necessity to correlate both fields. in haskell, we do
+
+  ```lhaskell
+  > let cell = (10, "hello world")
+  ```
+
+  in imperative programming's perspective, it belongs to data, and we need operation on it. for instance, to extract the fields,
+
+  ```lhaskell
+  > fst cell
+  10
+  > snd cell
+  "hello world"
+  ```
+
+  at this moment, it might be very clear that how this works. it's just a struct of 2 pointers pointing to some other data 
+  structures. please note now the memory layout of tuple is still very easy to visualize.
+
+  so far so good, there is no difference. however, i can define a tuple in a totally different way:
+
+  ```haskell
+  tup' a b f = f a b
+  fst' t     = t $ \a b -> a
+  snd' t     = t $ \a b -> b
+  ```
+
+  subsequently, we can do:
+
+  ```lhaskell
+  > let cell = tup' 10 "hello world"
+  > fst' cell
+  10
+  > snd' cell
+  "hello world"
+  ```
+
+  it does the job. but what about now? or to be specific, where are `a` and `b` stored in memory? for those having difficulties
+  understanding what just happened, `tup'` is supposed to take 2 pieces of arbitrary data, and put them into a closure, which
+  has some sort of promise to be invoked as parameters of some function, which is not yet known.
+
+  after all, the locations of `a` and `b` are no more transparent but rather managed by, either language or runtime, depending
+  on which you think the responsibility falls to. 
+
+  more example,
+
+  ```haskell
+  bimap' f g t = t $ \a b -> tup' (f a) (g b) -- map both fields together with 2 functions
+  first' f     = bimap' f  id
+  second' g    = bimap' id g
+  ```
+
+  it's very interesting to see functions(logic) and data are much more ambiguous in a functional programming language, and 
+  what we will be focusing on is just to describe what the data has, instead of how the data is constructed. this, i guess,
+  might be due to the nature of lacking execution model in lambda calculi, compared to very obvious tape based one in turing
+  machine. or i might have used the wrong word, which might lead me to criticism: there is no such thing called execution
+  in mathematics. the only thing exists is the relation of equivalence(or Referentially Transparency, out of mouths of
+  some fp nerds). in fp language, say haskell(almost), expressions in default context are equivalent, if all its subexpressions
+  are equivalent. in above example,
+
+  ```haskell
+  200
+  ```
+
+  and 
+
+  ```haskell
+  fst' $ bimap' (20*) id $ tup' 10 undefined
+  ```
+  
+  are equivalent. and the rule to examine that is substitution. we have:
+
+  ```
+  fst' $ bimap' (20*) id $ tup' 10 undefined
+  >> tup' 10 undefined $ (\a b -> tup' (20 * a) (id b)) $ (\a b -> a)
+  >> ((\a b -> a) . (\a b f -> f (20 * a) (id b))) 10 undefined
+  >> (\a b -> a) (\f -> f (20 * 10) (id undefined))
+  >> (\a b -> a) (20 * 10) (id undefined)
+  >> 20 * 10
+  >> 200
+  ```
+
+  hence they are equivalent. one thing worth mentioning is that, equivalence relation is mathematically speaking detached
+  to what so-called evaluation, but just a simple `a equals b` relation. in previous example, we can also say the latter
+  expression is equivalent to `2 + 198`, as both denote the very same mathematical obejct. this effective decouples the
+  actual representation of the data structure from the comparison of the meaning of it. in fp, we just focus on the 
+  denotation of a program. on the other hand, in imperative language, we have to be concerned about the operational effect.
+
 * experience in the industry
 
   a talk about politics
