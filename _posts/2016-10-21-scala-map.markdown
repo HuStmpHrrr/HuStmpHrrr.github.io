@@ -181,7 +181,7 @@ the theorem. In this aspect, it still corresponds to th previous analysis.
 ## Map is actually a functor
 
 With all these problems, however, it doesn't mean `Map` cannot be a functor. In fact, `Map` can be defined as a
-functor, regardless in which order the keys will be iterated. In this case, it can be `SortedMap` or `ListMap`. In fact,
+functor, regardless in which order the keys will be iterated. In this case, it can be any `Map`s. In fact,
 this is implemented in Scala by `#mapValues`. It can be easily verified.
 
 First of all, identity law is trivial.
@@ -200,7 +200,7 @@ as it is literally defined.
 
 ## What about Set?
 
-As the close relation to `Map`, another obvious question to ask to whether `Set` has this problem as well. And the
+As the close relation to `Map`, another obvious question to ask is whether `Set` has this problem as well. And the
 answer is: yes and no. The yes part means it's positive in scala for hash based `Set` implementation, not due to 
 any rigorous mathematical reason, but the characteristic of JVM, i.e. all objects can compare equality and implement
 hash code. No part means equality and hash code is a constraint, and the `Set` of a type without them cannot own a
@@ -227,7 +227,7 @@ hold `forall a b` anymore. Hence, `Set` cannot really be defined as a functor. T
 Scala happen to be very specific to JVM environment.
 
 
-Some might ask then "you just said `Map` is a functor and `Map[K, Unit]` is equivalent to `Set`, how come one can be
+Some might ask then "you just said `Map` is a functor and `Map[K, Unit]` is equivalent to `Set[K]`, how come one can be
 defined as functor but not the other"? Well, considering we are in the scope of functional programming with
 mathematical basis, the forms of all problems in mathematics matter. All is due to the position of the very element we
 will be dealing with. Again, it's much easier to demonstrate in haskell language:
@@ -245,5 +245,5 @@ Here, `f` happens to be a type, and is of kind, in haskell:
 this means `f` is a higher order type that takes a type and finally return a type. What becomes the target of the the
 functor, in fact, is the type that `f` takes as type parameter, i.e. `a` of `f a`. So in the `Map` case, there could be
 as much as constraints to `K`, as long as `V` is free, we can define functor to it. However, in the case of `Set`, we
-will be directly dealing with `K` directly, which might come with different kinds of constraints. And this disallows us
+will be directly dealing with `K`, which might come with different kinds of constraints. And this disallows us
 to freely define a functor instance.
