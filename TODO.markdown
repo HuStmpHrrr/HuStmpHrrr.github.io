@@ -283,12 +283,203 @@ A list of todo topics
   introduce a supremum. It's very helpful to use some mathematical principle to verify the design and overlap theory and
   the practice.
 
-
   that said, it's not necessary to say we must have complete lattice in our type relations but just preferred. sometimes
   it's a complex tradeoff. e.g. `Set[C]` is invariant as `C` appears in a contravariant position. so which one you prefer,
   guarding checking the existence of a totally unrelated object in a set, or allow `Set[C]` being able to perform upcast?
   this is reality. this is life. life is so hard.
 
+
+* a couple of more words on type hierarchy during engineering and design phase
+
+  it's extremely normal that we will need to use concrete type to represent business entities in enterprise
+  programming. in scala, due to its OO characteristics, it's very common and welcomed for java programmers to design
+  type/class hierarchy in OO manner. however, java type system and scala one don't come even close and that makes java
+  programmers have the tendency to make very small but significant mistakes.
+
+  the most basic one is generics. in java, variance is not annotated with the declaration but usage. for instance, when
+  one needs to have a covariant `List`, one needs to do:
+
+  ```java
+  List<? extends MyObject> myList = //...
+  ```
+
+  but there is nothing wrong, from javac's point of view, to declare a contra-variant `List`:
+
+  ```java
+  List<? super MyObject> myList = //...
+  ```
+
+  however, this code has substantial issues. how can this code even make sense? if we decide to declare `myList` to be
+  of this type, then it means, under the principle of PECS(producer extends, consumer super), `myList` is totally in a
+  consumer position. that basically only allows us to call `#add()` to it, without being able to extract the elements
+  inside, as `#get()` and its iterator have the generics appear in covariant position. so because of this, we cannot
+  have a function that simply build a `List` and consume it in the same body if we have the need of variance.
+  otherwise, we will have to drop the variance and make it invariant.
+
+  since dealing with types is such a pain in the neck, java programmers have picked up the habbit of not taking too
+  close look into the types. and as a result, many type relations can be better formed remain half done. an example of
+  this will be to model the hierachy of animals:
+
+  ```scala
+  trait Animal { def father: Animal; def mother: Animal }
+  
+  trait BreastFeeding
+  trait HasFurAndHairs
+
+  trait Mammal[T <: BreastFeeding with HasFurAndHairs] extends Animal with BreastFeeding with HasFurAndHairs { 
+    def father: T
+    def mother: T
+  }
+  ```
+  
+  very often it's out of a seasoned java programmer's hand. the intention of the generics is to make sure parents
+  accessor can be reasonably typed. however, this type is so difficult to use in reality to a level that it sucks so
+  badly. for instance, if we want to extra the grandfather out of a `Mammal` instance, we would neeed to define:
+
+  ```scala
+  def grandfather(m: Mammal[_ <: BreastFeeding with HasFurAndHairs]) = m.father.father
+  ```
+
+  seems reasonable, and common sense tells us that `grandfather` should return the same type as `m`. but this code
+  won't compile for following reasons:
+
+  1. `m.father` is not of type `Animal` so `father` is not defined, and
+  2. even if we add `Animal` to be the constraint, there is no way we can express T in fact is also of the `Mammal`
+  type.
+  
+  so the modelling has serious issue in terms of expressing type relations when ones try to think in Java. a more
+  reasonable way to write this is to make it F-bounded:
+
+  ```scala
+  trait Mammal[+T <: Mammal[T]] extends Animal with BreastFeeding with HasFurAndHairs {
+    def father: T
+    def mother: T
+  }
+  ```
+  this looks much better. it add 2 more information into the types:
+
+  1. the `father` and `mother` now are certain to be `Mammal`, given the current instance is also a `Mammal`, and
+  2. covariance makes instance can be upcasted to a supremum and therefore the subset of type hierarchy forms a
+  complete lattice.
+
+  except the first point to add expressiveness, the second point is substantially important: it allows a single unified
+  and certain type to represent all the types in the hierarchy, which will definitely come in handy in the future,
+  especially compared to the original invariant solution.
+
+  however, if we come closer and inspect the covariance, soon we will detect an issue, that is the supremum of this
+  type is factually unwritable. as `T` has constraint of being `Mammal[T]`, it turns out the supremum requires itself
+  to appear in the generics, and it's an indefinite recursive loop:
+
+  ```scala
+  val mammal: Mammal[Mammal[Mammal[...]]] /* it can never end */ = ??
+  ```
+
+  interestingly, we have 2 ways of fixing it. the first one will be existential type. it nicely gets away with this
+  whole recursive burden:
+
+  ```scala
+  type MammalG = T forSome { type T <: Mammal[T] }
+  ```
+  
+  basically what it says is the type `T` is of some subtype of `Mammal[T]` and therefore we have solved the
+  recursiveness issue. 
+
+  something bad: however, 2 `MammalG` instances cannot be proven of the same types:
+
+  ```scala
+  val m1: MammalG = ??? // whereever it comes from
+  def eqCheck[A, B](a: => A, b: => B)(implicit f: A =:= B) = a // this will try to prove A and B are equal type
+  eqCheck(m1, m1.father) // cannot prove these 2 types are equal, though they are defined to be
+                         // even foo(m1, m1) cannot be proved
+                         // and console gives:
+                         // scala> :t m1
+                         // MammalG
+                         // scala> :t m1.father
+                         // T forSome { type T <: Mammal[T] }
+                         // scala> :t m1.father.father
+                         // T forSome { type T <: Mammal[T] }
+  ```
+
+  another way of fixing it will be, noticing the finitely nesting type relation, a type level fixed point. it's such a
+  general technique in turing complete type level programming, that it will show up anywhere in any circumstances.
+
+  ```scala
+  trait Fix[T[_ <: Fix[T]]] {
+    def unfix: T[Fix[T]]
+  }
+
+  trait MammalT[+T <: Fix[MammalT]] extends Animal with BreastFeeding with HasFurAndHairs with Fix[MammalT] { 
+    final def unfix = this
+
+    def father: T
+    def mother: T
+  }
+
+  type Mammal = Fix[MammalT] 
+  ```
+
+  hence we can define a `Dog` to be:
+
+  ```scala
+  class Dog(val father: Dog, val mother: Dog) extends MammalT[Dog]
+  ```
+
+  please check closer: as we defined, `Mammal` now becomes `Fix[MammalT]`, and if we substitute the definition in the
+  right place, we can yield following pseudo definition from this alias:
+
+  ```scala
+  trait Mammal[+T <: Mammal]
+  ```
+
+  which is kind of reaching what we want to express. however, this buys us more: now `Mammal` is a very certain type
+  with no a single place of ambiguity. that means, we can now prove the supremum of this lattice equal:
+
+  ```
+  scala> val dog = new Dog(null, null)
+  dog: Dog = Dog@ecdf726
+
+  scala> eqCheck(dog, dog.unfix.father)
+  res2: Dog = Dog@ecdf726
+
+  scala> eqCheck(dog, dog.father)
+  res3: Dog = Dog@ecdf726
+
+  scala> val mammal: Mammal = dog
+  mammal: Mammal = Dog@ecdf726
+
+  scala> eqCheck(mammal, mammal.unfix.father)
+  res4: Mammal = Dog@ecdf726
+  ```
+  
+  this is very essential. if we cannot prove the supremums are equal, effectively that just means we have infinite
+  numebers of supremums, and every time we mention this supremum, compiler actually will have to regard this call
+  differently, even if this newly called supremum can receive any value of its type.
+
+  another aspect of this fix is to introduce type level fixed point application. notice that all `MammalT[_]` now
+  implements a `Fix[_]` which turns around is capable of returning its own object. this `Fix[_]` higher order type
+  serves a purpose of delay the type level of computation to the time when it's needed, i.e. to make
+  `MammalT[MammalT[MammalT[...]]]` to be `Fix[MammalT]`, hence to make supremum writable. compared to F-bounded, we use
+  the type fixed point to constrain the generics in order to preserve the expressiveness.
+  
+  the 2 solutions have pros and cons. they both work, however, the supremum type of F-bounded solution involves
+  existential type, which is always troublesome to deal with. for most of the cases, the existential type will just do
+  what is expected, but the corner cases can be very subtle. on the other side, for type level fixed point,  we can 
+  consistently trust the type and it's guaranteed we won't hit corner cases, so we won't have to pay much attention to
+  some tiny details that doesn't really matter.
+
+  taking away the generics appears to be the simpliest:
+
+  ```scala
+  trait Mammal extends Animal with BreastFeeding with HasFurAndHairs {
+    def father: Mammal
+    def mother: Mammal
+  }
+  
+  class Dog(val father: Dog, val mother: Dog) extends Mammal
+  ```
+
+  this solution avoids all sorts of difficulties and simply expresses the idea. in the condition of enterprise
+  programming, with the divergence of ideas, simpliest appears always to be the best.
 
 * functional programming and lambda calculi
 
