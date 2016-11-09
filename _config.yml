@@ -10,6 +10,7 @@ title: HuStmpHrrr's Blog
 email: fdhzs2010@hotmail.com
 description: > # this means to ignore newlines until "baseurl:"
   Awesome! Still experimental.
+  Comments as Github issues please.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://hustmphrrr.github.io" # the base hostname & protocol for your site
 github_username:  HuStmpHrrr
