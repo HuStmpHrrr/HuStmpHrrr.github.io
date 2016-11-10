@@ -34,7 +34,7 @@ a collection that cannot be read is hardly useful.
 
 Since dealing with types is such a pain in the neck, Java programmers have picked up the habbit of not taking too
 close look into the types. As a result, many type relations can be better formed remain half done. An example of
-this will be to model the hierachy of animals(it's a projection from code that can see everywhere):
+this will be to model the hierachy of animals(it's a projection from code that can be seen everywhere):
 
 ```scala
 trait Animal {
@@ -78,7 +78,7 @@ class Dog(val father: Dog, val mother: Dog) extends Mammal[Dog]
 val dog: Mammal[_ <: Animal with BreastFeeding with HasFurAndHairs] = new Dog(null, null)
 ```
 
-We have to repete this long constraint everywhere it's used. The size of the code becomes unnecessarily huge. It
+We have to repeate this long constraint everywhere it's used. The size of the code becomes unnecessarily huge. It
 damages a more structural trait driven style.
 
 ## F-bounded
@@ -88,8 +88,8 @@ reasonable way to write this is to make it F-bounded:
 
 ```scala
 trait Mammal[+T <: Mammal[T]] extends Animal with BreastFeeding with HasFurAndHairs {
-def father: T
-def mother: T
+  def father: T
+  def mother: T
 }
 ```
 This looks much better. It add 2 more information into the types:
@@ -169,9 +169,14 @@ trait Fix[T[_ <: Fix[T]]] {
   final def unfix: T[Fix[T]] = this
 }
 
-trait MammalT[+T <: Fix[MammalT]] extends Animal with BreastFeeding with HasFurAndHairs with Fix[MammalT] { 
-    def father: T
-    def mother: T
+trait MammalT[+T <: Fix[MammalT]]
+  extends Animal
+  with    BreastFeeding
+  with    HasFurAndHairs
+  with    Fix[MammalT] {
+
+  def father: T
+  def mother: T
 }
 
 type Mammal = Fix[MammalT] 
@@ -194,19 +199,19 @@ which is kind of reaching what we want to express. However, this buys us more: n
 with no a single place of ambiguity. That means, we can now prove the supremum of this lattice equal:
 
 ```
-Scala> val dog = new Dog(null, null)
+scala> val dog = new Dog(null, null)
 dog: Dog = Dog@ecdf726
 
-Scala> eqCheck(dog, dog.unfix.father)
+scala> eqCheck(dog, dog.unfix.father)
 res2: Dog = Dog@ecdf726
 
-Scala> eqCheck(dog, dog.father)
+scala> eqCheck(dog, dog.father)
 res3: Dog = Dog@ecdf726
 
-Scala> val mammal: Mammal = dog
+scala> val mammal: Mammal = dog
 mammal: Mammal = Dog@ecdf726
 
-Scala> eqCheck(mammal, mammal.unfix.father)
+scala> eqCheck(mammal, mammal.unfix.father)
 res4: Mammal = Dog@ecdf726
 ```
 
@@ -214,13 +219,15 @@ Feeling good to get rid of the fly.
 
 Another aspect of this fix is to introduce type level fixed point application. Notice that all `MammalT[_]` now
 implements a `Fix[_]` which turns around is capable of returning its own object. This `Fix[_]` higher order type
-serves a purpose of delay the type level of computation to the time when it's needed, i.e. to make
+serves a purpose of delaying the type level of computation to the time when it's needed, i.e. to make
 `MammalT[MammalT[MammalT[...]]]` to be `Fix[MammalT]`. The reason that we can compare equal this type instead is
 simple: in a setting of pure mathmatical world but with finite computational resources, comparing infinitely long
 structure is a valid operation but will not terminate; however, if we have a combinator that represents the shape of
-that very structure, then it's decidable to perform extensional equality check. Here, `Fix[_]` appears to describe the
-infinitely nesting structure and therefore the whole type becomes comparable. Compared to F-bounded, we use
-the type fixed point to constrain the generics in order to preserve the expressiveness.
+that very structure, then it's decidable to perform extensional equality check. For examle, we don't have to know how
+function `f` is defined to conclude `f(1) == f(1)` must hold within the presumed settings. 
+
+Here, `Fix[_]` appears to describe the infinitely nesting structure and therefore the whole type becomes comparable. 
+Compared to F-bounded, we use the type fixed point to constrain the generics in order to preserve the expressiveness.
 
 One thing worth mentioning here is the way I define `Fix[_]` here; it's kind of different from how other people 
 would have defined it, as a case class like this:
@@ -248,16 +255,16 @@ in order to please the type system.
 ## Generics might just be unnecessary
 
 After all these blahblah, is that necessary to do all these things? Depends on which environment this discussion is
-held. In fact, in the world of industry, these solutions can just appear to be completed, as it takes time to refine
-the ideas and the result is not immediate. The capabilities and strength can diverge across employees as well. So
-purchasing an easier solution becomes necessary in this situation.
+held. In fact, in the world of industry, these solutions can just appear to be complicated, as it takes time to refine
+the ideas and the result is not immediate. The capabilities and strength can diverse across employees as well. So
+pursuing an easier solution becomes a path to go in this situation.
 
-In fact, a much simpler solution is right in front of our faces: just take away the generics:
+Not surprisingly, a much simpler solution is right in front of us: just take away the generics:
 
 ```scala
 trait Mammal extends Animal with BreastFeeding with HasFurAndHairs {
-def father: Mammal
-def mother: Mammal
+  def father: Mammal
+  def mother: Mammal
 }
 
 class Dog(val father: Dog, val mother: Dog) extends Mammal
@@ -268,7 +275,18 @@ override to any types that are subtyping `Mammal`. Though the point is valid, it
 is trying to convey, and type safety check is just something bonus in this situation. Moreover, in a company, the
 practice is all about engineering, and a software engineering environment often involves design review and code review.
 This kind of issues can be easily identified. However, by dropping generics, code becomes much much simpler to write
-and the structure is very straightforward. Trading strict correctness to simpliness sounds a nice deal to me.
+and the structure is very straightforward. Trading strict correctness to simpleness sounds a nice deal to me. I can't
+help quoting this Zen of Python on the topic of simpleness:
+
+> In [1]: import this  
+> The Zen of Python, by Tim Peters
+>
+>
+> Beautiful is better than ugly.  
+> Explicit is better than implicit.  
+> Simple is better than complex.  
+> Complex is better than complicated.  
+> // blah blah
 
 // more. in fact, very often in Scala world, there are very common situations that people tend to introduce seemingly
-// meaningful but essentially unnecessary generics. point that out.
+ meaningful but essentially unnecessary generics. point that out.
