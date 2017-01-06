@@ -252,6 +252,44 @@ consistently trust the type and it's guaranteed we won't hit corner cases, so we
 some tiny details that doesn't really matter. The only price we need to pay is to once a while to call `#unfix` method
 in order to please the type system.
 
+## Type family
+
+Another way to fix this is to break the loop of parametric generics and put the constraint in another place:
+
+```scala
+trait Mammal
+  extends Animal
+  with    BreastFeeding
+  with    HasFurAndHairs {
+
+  type T <: Mammal
+
+  def father: T
+  def mother: T
+}
+```
+
+So we can implement `Dog`s as:
+
+```scala
+trait Dog extends Mammal {
+  type T <: Dog
+}
+
+case class Husky(val father: Husky, val mother: Husky) extends Dog {
+  type T = Husky
+}
+```
+
+The key here is the type parameter `T`, and it is used to indicate the type bound. In `Mammal`, `type T <: Mammal` says
+`T` needs to be of a subtype of `Mammal` and in `Dog`, it needs to be of a subtype of `Dog`. Until `Husky` is defined,
+we state `T` in fact is `Husky` such that the whole hierarchy doesn't involve any loop in generics.
+
+This small piece of code actually introduces a different way of looking at a type. In traits, we only specify the bound
+of the type, which is supposed to comply to all of its implementation. This bound acts like a proof: at a certain
+level, with a certain piece of information, a certain knowledge can be acquired logically. This way can also provide a
+uniform upper bound for this `Mammal` framework.
+
 ## Generics might just be unnecessary
 
 After all these blahblah, is that necessary to do all these things? Depends on which environment this discussion is
