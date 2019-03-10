@@ -221,10 +221,12 @@ versions of DOTs for so long.&lt;/p&gt;
 &lt;p&gt;If I stop here, then I would probably make myself look like I am unilaterally
 criticizing, so I guess to make the game fair, I should point out a number of things
 that can be done in OOPSLA DOT, but not Wadlerfest DOT.&lt;/p&gt;
-&lt;p&gt;1. Wadlerfest DOT has no union types (&lt;span class="math"&gt;\(\vee\)&lt;/span&gt;).
-1. Objects / recursive types in Wadlerfest DOT have no subtyping relation between
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;Wadlerfest DOT has no union types (&lt;span class="math"&gt;\(\vee\)&lt;/span&gt;).&lt;/li&gt;
+&lt;li&gt;Objects / recursive types in Wadlerfest DOT have no subtyping relation between
 them. This is what led to the comparison to begin with. It's unimaginably strange
-that, in an object-oriented setting, there isno subtyping relation among objects.&lt;/p&gt;
+that, in an object-oriented setting, there isno subtyping relation among objects.&lt;/li&gt;
+&lt;/ol&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="takeaways"&gt;
