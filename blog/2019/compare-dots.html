@@ -175,15 +175,15 @@ describe a main feature in these calculi to make the problem clearer.</p>
 <span class="c1">// then in the future, one may refer to the type inside of Foo</span>
 <span class="k">val</span> <span class="n">y</span> <span class="k">:</span> <span class="kt">x.A</span> <span class="o">=</span> <span class="o">???</span>
 </pre></div>
-<p>In the notation <cite>&gt;:</cite> means that <cite>Foo</cite> is some subtype of <cite>A</cite>, and <cite>&lt;:</cite> means <cite>Bar</cite> is
-some supertype of <cite>A</cite>. Now consider the following piece of code.</p>
+<p>In the notation <span class="math">\(&gt;:\)</span> means that <cite>Foo</cite> is some subtype of <cite>A</cite>, and <span class="math">\(&lt;:\)</span>
+means <cite>Bar</cite> is some supertype of <cite>A</cite>. Now consider the following piece of code.</p>
 <div class="highlight"><pre><span></span><span class="k">val</span> <span class="n">z1</span> <span class="k">:</span> <span class="kt">Foo</span> <span class="o">=</span> <span class="o">???</span>
 <span class="k">val</span> <span class="n">z2</span> <span class="k">:</span> <span class="kt">x.A</span> <span class="o">=</span> <span class="n">z1</span>
 <span class="k">val</span> <span class="n">z3</span> <span class="k">:</span> <span class="kt">Bar</span> <span class="o">=</span> <span class="n">z2</span>
 </pre></div>
-<p><cite>x.A</cite> in the second is what we called path dependent types. We refer to the hidden
-type inside of the object via member access. This piece of code shows something very
-strange. To begin with, the code has nothing to do with particular <cite>Foo</cite> or
+<p><cite>x.A</cite> in the second line is what we called <em>path dependent types</em>. We refer to the
+hidden type inside of the object via member access. This piece of code shows something
+very strange. To begin with, the code has nothing to do with particular <cite>Foo</cite> or
 <cite>Bar</cite>. That means one can turn any types into any other types. From theoretical point
 of view, in the core calculus, we don't really need this assignment sequence to
 achieve the same result. Instead, we rely on a fundamental property from the calculus,
@@ -193,7 +193,7 @@ transitivity.</p>
 \frac{\Gamma \vdash S &lt;: T \quad \Gamma \vdash T &lt;: U}{\Gamma \vdash S &lt;: U} (Trans)
 \end{equation*}
 </div>
-<p>Relying in transitivity, we can derive <cite>z1</cite> having type <cite>Bar</cite> immediately. However,
+<p>Relying on transitivity, we can derive <cite>z1</cite> having type <cite>Bar</cite> immediately. However,
 such derivation can only be made possible, if <cite>x</cite> is in the context to begin
 with. Namely, there needs to be some instance of <cite>Foo</cite> we can refer to: note that path
 dependent types only works for existing variables. We refer to this characteristic of

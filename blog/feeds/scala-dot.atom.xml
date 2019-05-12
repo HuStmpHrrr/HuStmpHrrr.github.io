@@ -1,5 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Jason Hu's Blog - Scala / DOT</title><link href="/blog/" rel="alternate"></link><link href="/blog/feeds/scala-dot.atom.xml" rel="self"></link><id>/blog/</id><updated>2019-03-09T00:00:00-05:00</updated><entry><title>Comparison Between Different DOTs</title><link href="/blog/2019/compare-dots.html" rel="alternate"></link><published>2019-03-09T00:00:00-05:00</published><updated>2019-03-09T00:00:00-05:00</updated><author><name>Jason Hu</name></author><id>tag:None,2019-03-09:/blog/2019/compare-dots.html</id><summary type="html">&lt;p class="first last"&gt;A comparison between different versions of Dependent Object Types
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Jason Hu's Blog - Scala / DOT</title><link href="/blog/" rel="alternate"></link><link href="/blog/feeds/scala-dot.atom.xml" rel="self"></link><id>/blog/</id><updated>2019-05-12T00:00:00-04:00</updated><entry><title>Subtyping with Algebra</title><link href="/blog/2019/sub-alg.html" rel="alternate"></link><published>2019-05-12T00:00:00-04:00</published><updated>2019-05-12T00:00:00-04:00</updated><author><name>Jason Hu</name></author><id>tag:None,2019-05-12:/blog/2019/sub-alg.html</id><summary type="html">&lt;p class="first last"&gt;Study subtyping in algebraic approach!&lt;/p&gt;
+</summary><content type="html">&lt;div class="section" id="introduction"&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;When the subtyping relation in a programming language is rich enough, the relation
+starts to induce some algebraic structure. For example, DOT has intersection types,
+which admits bounded semi-lattice structure, both order theoretically and
+algebraically. However, intersection types in DOT have only been studied in its order
+theoretic nature (probably not even, because order theory studies nothing about the
+contexts!), but nothing about its algebra.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="motivation"&gt;
+&lt;h2&gt;Motivation&lt;/h2&gt;
+&lt;p&gt;In my work of &lt;a class="reference external" href="https://gitlab.com/JasonHuZS/AlgDotCalculus"&gt;Master's thesis&lt;/a&gt;, I
+studied a simplified version of DOT, &lt;span class="math"&gt;\(D_{\wedge}\)&lt;/span&gt; (pronounced &lt;em&gt;Dee
+Intersect&lt;/em&gt;). This calculus has intersection types and data field members. For example,
+&lt;span class="math"&gt;\(\{a : S \wedge U\}\)&lt;/span&gt; denotes a data field member, the tag of which is &lt;span class="math"&gt;\(a\)&lt;/span&gt;
+and the type is &lt;span class="math"&gt;\(S \wedge U\)&lt;/span&gt;. In general, intersection types specify refinement
+of information. The subtyping rules are as follows.&lt;/p&gt;
+&lt;div class="math"&gt;
+\begin{equation*}
+\dfrac{ }{\Gamma \vdash S \wedge U &amp;lt;: S}(\text{And-E1})
+\quad
+\dfrac{ }{\Gamma \vdash S \wedge U &amp;lt;: U}(\text{And-E2})
+\end{equation*}
+&lt;/div&gt;
+&lt;div class="math"&gt;
+\begin{equation*}
+\dfrac{\Gamma \vdash T &amp;lt;: S \quad \Gamma \vdash T &amp;lt;: U}
+{\Gamma \vdash T &amp;lt;: S \wedge U}(\text{And-I})
+\end{equation*}
+&lt;/div&gt;
+&lt;p&gt;The first two rules says that one can feel free to drop information from intersection
+types, and the third rule asserts that the intersection type is the greatest subtype
+of &lt;span class="math"&gt;\(S\)&lt;/span&gt; and &lt;span class="math"&gt;\(U\)&lt;/span&gt;. If &lt;span class="math"&gt;\(\Gamma\)&lt;/span&gt; is not specified, then these rules are
+an axiomatization of order theoretic meet-semilattice. Together with &lt;span class="math"&gt;\(\top\)&lt;/span&gt;
+type, which is the supertype of all types, this forms an order theoretic bounded
+meet-semilattice structure.&lt;/p&gt;
+&lt;p&gt;So far so natural. However, it's textbook knowledge that order theoretic
+meet-semilattice and algebraic meet-semilattice are interchangeable. Namely, order
+theoretic meet-semilattice induces algebraic structure. Define the &lt;em&gt;induced type
+equivalence relation&lt;/em&gt; as follows.&lt;/p&gt;
+&lt;div class="math"&gt;
+\begin{equation*}
+\Gamma \vdash S \approx U \equiv \Gamma \vdash S &amp;lt;: U \times \Gamma \vdash U &amp;lt;: S
+\end{equation*}
+&lt;/div&gt;
+&lt;p&gt;Namely, two types are equivalent, if they are a subtype of each other in the given
+context. So it's easy to see that.&lt;/p&gt;
+&lt;div class="math"&gt;
+\begin{equation*}
+\Gamma \vdash S \wedge U \approx U \wedge S
+\end{equation*}
+&lt;/div&gt;
+&lt;p&gt;This property is called &lt;em&gt;commutativity&lt;/em&gt;. In general, regardless of the contexts,
+algebraic bounded semilattice admits all following properties.&lt;/p&gt;
+&lt;div class="math"&gt;
+\begin{align*}
+\top \wedge T &amp;amp;\approx T &amp;amp;(\text{identity}) \\
+S \wedge U &amp;amp;\approx U \wedge S &amp;amp;(\text{commutativity}) \\
+(S \wedge T) \wedge U &amp;amp;\approx S \wedge (T \wedge U) &amp;amp;(\text{associativity}) \\
+T \wedge T &amp;amp;\approx T &amp;amp;(\text{idempotency})
+\end{align*}
+&lt;/div&gt;
+&lt;p&gt;One can prove all of the above using the subtyping relation above.&lt;/p&gt;
+&lt;p&gt;What's more, one might expect that intersection types distribute accross data field
+members. Namely,&lt;/p&gt;
+&lt;div class="math"&gt;
+\begin{equation*}
+\Gamma \vdash \{ a : S \} \wedge \{a : U\} \approx \{a : S \wedge U\}
+\end{equation*}
+&lt;/div&gt;
+&lt;p&gt;Note that the type on the left is already provably a supertype of the right, because
+intersection types are the greatest subtypes. However, this type cannot be shown a
+subtype of the right. This requires an axiom, like following&lt;/p&gt;
+&lt;div class="math"&gt;
+\begin{equation*}
+\dfrac{ }
+{\Gamma \vdash \{ a : S \} \wedge \{a : U\} &amp;lt;: \{a : S \wedge U\}}
+(\text{Fld-Distr})
+\end{equation*}
+&lt;/div&gt;
+&lt;p&gt;This rule is required to be an axiom because it cannot be proved by any other existing
+rules. This is normally how it's done in other people's work, but looking at this
+rule, it's easy to realize that it is the algebraic relation that is wanted, not this
+particular subtyping relation. This axiom is here just to make sure the subtyping
+relation &lt;em&gt;induces&lt;/em&gt; a desired algebraic relation, but nothing more. Therefore, a
+question arises: why not reason about the algebraic structure directly?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="algebraic-structure-in-subtyping"&gt;
+&lt;h2&gt;Algebraic Structure in Subtyping&lt;/h2&gt;
+&lt;p&gt;This is very interesting way of thinking about subtyping. Algebraic approaches are not
+rare in type theoretic study, but somehow, subtyping doesn't quite look &amp;quot;type
+theoretic&amp;quot;. On the other hand, people seem to avoid this way of thinking because it
+simply adds a great deal of difficulties in the study. This is because algebraic
+structure in its essence is &amp;quot;more precise&amp;quot; than subtyping relation, and therefore
+subtyping relation can only be built after the algebra is defined, but not the other
+way around. Visually, a hierarchy like&lt;/p&gt;
+&lt;div class="math"&gt;
+\begin{equation*}
+\text{Type (raw)} \to \text{Algebra (without context)} \to \text{Subtyping (with contexts)}
+\end{equation*}
+&lt;/div&gt;
+&lt;p&gt;needs to be defined.&lt;/p&gt;
+&lt;p&gt;Another reason is what we have in proof assistants is not sufficient to
+reason about these nested structures efficiently. To give a good feeling of how
+cumbersome it can be, I formalized a very primitive algebraic relation in
+&lt;span class="math"&gt;\(D_{\wedge}\)&lt;/span&gt; &lt;a class="reference external" href="https://gitlab.com/JasonHuZS/AlgDotCalculus/blob/master/agda/DintAlg.agda"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;infix&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt; _≃_
+&lt;span class="kr"&gt;data&lt;/span&gt; _≃_ &lt;span class="ow"&gt;:&lt;/span&gt; Typ &lt;span class="ow"&gt;→&lt;/span&gt; Typ &lt;span class="ow"&gt;→&lt;/span&gt; &lt;span class="kt"&gt;Set&lt;/span&gt; &lt;span class="kr"&gt;where&lt;/span&gt;
+  &lt;span class="nf"&gt;refl&lt;/span&gt;   &lt;span class="ow"&gt;:&lt;/span&gt; &lt;span class="ow"&gt;∀&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;T&lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="ow"&gt;→&lt;/span&gt; T ≃ T
+  &lt;span class="nf"&gt;tran&lt;/span&gt;   &lt;span class="ow"&gt;:&lt;/span&gt; &lt;span class="ow"&gt;∀&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;S T U&lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="ow"&gt;→&lt;/span&gt; S ≃ T &lt;span class="ow"&gt;→&lt;/span&gt; T ≃ U &lt;span class="ow"&gt;→&lt;/span&gt; S ≃ U
+  &lt;span class="nf"&gt;symm&lt;/span&gt;   &lt;span class="ow"&gt;:&lt;/span&gt; &lt;span class="ow"&gt;∀&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;S U&lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="ow"&gt;→&lt;/span&gt; S ≃ U &lt;span class="ow"&gt;→&lt;/span&gt; U ≃ S
+  &lt;span class="nf"&gt;assoc&lt;/span&gt;  &lt;span class="ow"&gt;:&lt;/span&gt; &lt;span class="ow"&gt;∀&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;S T U&lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="ow"&gt;→&lt;/span&gt; S ∩ &lt;span class="o"&gt;(&lt;/span&gt;T ∩ U&lt;span class="o"&gt;)&lt;/span&gt; ≃ S ∩ T ∩ U
+  &lt;span class="nf"&gt;comm&lt;/span&gt;   &lt;span class="ow"&gt;:&lt;/span&gt; &lt;span class="ow"&gt;∀&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;S U&lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="ow"&gt;→&lt;/span&gt; S ∩ U ≃ U ∩ S
+  &lt;span class="nf"&gt;idem&lt;/span&gt;   &lt;span class="ow"&gt;:&lt;/span&gt; &lt;span class="ow"&gt;∀&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;T&lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="ow"&gt;→&lt;/span&gt; T ∩ T ≃ T
+  &lt;span class="nf"&gt;⊤∩&lt;/span&gt;     &lt;span class="ow"&gt;:&lt;/span&gt; &lt;span class="ow"&gt;∀&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;T&lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="ow"&gt;→&lt;/span&gt; ⊤ ∩ T ≃ T
+  &lt;span class="nf"&gt;⊥∩&lt;/span&gt;     &lt;span class="ow"&gt;:&lt;/span&gt; &lt;span class="ow"&gt;∀&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;T&lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="ow"&gt;→&lt;/span&gt; ⊥ ∩ T ≃ ⊥
+  &lt;span class="nf"&gt;∩-cong&lt;/span&gt; &lt;span class="ow"&gt;:&lt;/span&gt; _∩_ Preserves₂ _≃_ ⟶ _≃_ ⟶ _≃_
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;There are more axioms than listed above. This is because some axioms are needed to
+impose the equivalence relation which does not originally hold if a relation is
+defined from scratch. At last, the congruence property &lt;cite&gt;∩-cong&lt;/cite&gt; also needs to be
+asserted to ensure the equivalence is congruence everywhere in the intersection
+types. Then it follows the properties of this equivalence, like proving this
+equivalence respects the subtyping relation, as well as other algebraic
+theorems. Moreover, this equivalence is very hard to work with, so to make things a
+bit easier, more auxiliary concepts need to be defined. What a pain.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="cubical-type-theory"&gt;
+&lt;h2&gt;Cubical Type Theory&lt;/h2&gt;
+&lt;p&gt;This sort of algebraic study is painful, because even the basic structure of the
+relation requires &lt;em&gt;proofs&lt;/em&gt;. For example, this relation is not an equivalence by birth;
+it is only after a proof is established. Due to this, the congruence properties
+require more proofs and it's probably the most boring thing to do.&lt;/p&gt;
+&lt;p&gt;However, this is not a deadend. Cubical type theory is a richer theory than
+intuitionistic type theory and a more helpful one when reasoning about &amp;quot;algebras up to
+equivalences&amp;quot;. In cubical type theory, higher inductive types (HIT) allow data to
+carry internal algebraic structure. For example, one can define &lt;span class="math"&gt;\(S \wedge U = U
+\wedge S\)&lt;/span&gt; by definition. This means from the outside world, when a &lt;span class="math"&gt;\(D_{\wedge}\)&lt;/span&gt;
+type is perceived, it's that type up to algebra as desired above. What's more, it's
+perfectly congurent, due to the type theory.&lt;/p&gt;
+&lt;p&gt;Then looking back to what was wanted above,&lt;/p&gt;
+&lt;div class="math"&gt;
+\begin{equation*}
+\{ a : S \} \wedge \{a : U\} \approx \{a : S \wedge U\}
+\end{equation*}
+&lt;/div&gt;
+&lt;p&gt;If we define&lt;/p&gt;
+&lt;div class="math"&gt;
+\begin{equation*}
+f(T) \equiv \{a : T\}
+\end{equation*}
+&lt;/div&gt;
+&lt;p&gt;then&lt;/p&gt;
+&lt;div class="math"&gt;
+\begin{equation*}
+f(S) \wedge f(U) \approx f(S \wedge U)
+\end{equation*}
+&lt;/div&gt;
+&lt;p&gt;simply means that data field members are semi-lattice homomorphism. From category
+theoretic point of view, &lt;span class="math"&gt;\(f\)&lt;/span&gt; is considered functorial. Everything starts to look
+very simple from this point on. Moreover, the subtyping relation can remain untouched.
+It simply gives more structure to the underlying definition of types in
+&lt;span class="math"&gt;\(D_{\wedge}\)&lt;/span&gt;. The theory therefore gives more structure than
+intuitionistic type theory in order to study the problem, which does not seem to be
+explored at the moment. I am very interested to see how this new type theory can
+change the way people think about problems in.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="conclusion"&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Every problem in DOT is very difficult and tricky. At least it is the case at this
+moment. One good way to tackle this problem should be to lower the difficulty of the
+problem itself by improving the tools, not necessarily to invest more time on tackle a
+hard problem. I feel that cubical type theory is the right type theory to talk about
+DOT. However, changing the way of thinking is never an easy task to begin with. I hope
+one day type theory can be so advanced that even DOT becomes a piece of cake.&lt;/p&gt;
+&lt;/div&gt;
+&lt;script type='text/javascript'&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</content><category term="DOT"></category><category term="programming languages"></category><category term="research"></category><category term="type theory"></category><category term="proof assistants"></category></entry><entry><title>Comparison Between Different DOTs</title><link href="/blog/2019/compare-dots.html" rel="alternate"></link><published>2019-03-09T00:00:00-05:00</published><updated>2019-03-09T00:00:00-05:00</updated><author><name>Jason Hu</name></author><id>tag:None,2019-03-09:/blog/2019/compare-dots.html</id><summary type="html">&lt;p class="first last"&gt;A comparison between different versions of Dependent Object Types
 (DOTs). The thought put in this blog might or might not be published in the
 future, but nonetheless something worth mentioning before I entirely forget
 about it.&lt;/p&gt;
@@ -34,15 +265,15 @@ describe a main feature in these calculi to make the problem clearer.&lt;/p&gt;
 &lt;span class="c1"&gt;// then in the future, one may refer to the type inside of Foo&lt;/span&gt;
 &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;x.A&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;???&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;In the notation &lt;cite&gt;&amp;gt;:&lt;/cite&gt; means that &lt;cite&gt;Foo&lt;/cite&gt; is some subtype of &lt;cite&gt;A&lt;/cite&gt;, and &lt;cite&gt;&amp;lt;:&lt;/cite&gt; means &lt;cite&gt;Bar&lt;/cite&gt; is
-some supertype of &lt;cite&gt;A&lt;/cite&gt;. Now consider the following piece of code.&lt;/p&gt;
+&lt;p&gt;In the notation &lt;span class="math"&gt;\(&amp;gt;:\)&lt;/span&gt; means that &lt;cite&gt;Foo&lt;/cite&gt; is some subtype of &lt;cite&gt;A&lt;/cite&gt;, and &lt;span class="math"&gt;\(&amp;lt;:\)&lt;/span&gt;
+means &lt;cite&gt;Bar&lt;/cite&gt; is some supertype of &lt;cite&gt;A&lt;/cite&gt;. Now consider the following piece of code.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;z1&lt;/span&gt; &lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Foo&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;???&lt;/span&gt;
 &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;z2&lt;/span&gt; &lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;x.A&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;z1&lt;/span&gt;
 &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;z3&lt;/span&gt; &lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Bar&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;z2&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;cite&gt;x.A&lt;/cite&gt; in the second is what we called path dependent types. We refer to the hidden
-type inside of the object via member access. This piece of code shows something very
-strange. To begin with, the code has nothing to do with particular &lt;cite&gt;Foo&lt;/cite&gt; or
+&lt;p&gt;&lt;cite&gt;x.A&lt;/cite&gt; in the second line is what we called &lt;em&gt;path dependent types&lt;/em&gt;. We refer to the
+hidden type inside of the object via member access. This piece of code shows something
+very strange. To begin with, the code has nothing to do with particular &lt;cite&gt;Foo&lt;/cite&gt; or
 &lt;cite&gt;Bar&lt;/cite&gt;. That means one can turn any types into any other types. From theoretical point
 of view, in the core calculus, we don't really need this assignment sequence to
 achieve the same result. Instead, we rely on a fundamental property from the calculus,
@@ -52,7 +283,7 @@ transitivity.&lt;/p&gt;
 \frac{\Gamma \vdash S &amp;lt;: T \quad \Gamma \vdash T &amp;lt;: U}{\Gamma \vdash S &amp;lt;: U} (Trans)
 \end{equation*}
 &lt;/div&gt;
-&lt;p&gt;Relying in transitivity, we can derive &lt;cite&gt;z1&lt;/cite&gt; having type &lt;cite&gt;Bar&lt;/cite&gt; immediately. However,
+&lt;p&gt;Relying on transitivity, we can derive &lt;cite&gt;z1&lt;/cite&gt; having type &lt;cite&gt;Bar&lt;/cite&gt; immediately. However,
 such derivation can only be made possible, if &lt;cite&gt;x&lt;/cite&gt; is in the context to begin
 with. Namely, there needs to be some instance of &lt;cite&gt;Foo&lt;/cite&gt; we can refer to: note that path
 dependent types only works for existing variables. We refer to this characteristic of

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+
+  <title>Subtyping with Algebra</title>
+
+
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="origin" />
+  <meta name="generator" content="Pelican" />
+  <link href="/blog/" rel="canonical" />
+
+  <!-- Feed -->
+        <link href="/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Jason Hu's Blog Full Atom Feed" />
+          <link href="/blog/feeds/{slug}.atom.xml" type="application/atom+xml" rel="alternate" title="Jason Hu's Blog Categories Atom Feed" />
+
+  <link href="/blog/theme/css/style.css" type="text/css" rel="stylesheet" />
+
+  <!-- Code highlight color scheme -->
+      <link href="/blog/theme/css/code_blocks/github.css" rel="stylesheet">
+
+
+  <!-- Custom fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300' rel='stylesheet' type='text/css' />
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Zilla+Slab" rel="stylesheet"> 
+  
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+
+  <link href="/blog/2019/sub-alg.html" rel="canonical" />
+
+    <meta name="description" content="Study subtyping in algebraic approach!">
+
+    <meta name="author" content="Jason Hu">
+
+    <meta name="tags" content="DOT">
+    <meta name="tags" content="programming languages">
+    <meta name="tags" content="research">
+    <meta name="tags" content="type theory">
+    <meta name="tags" content="proof assistants">
+
+
+
+
+<!-- Open Graph -->
+<meta property="og:site_name" content="Jason Hu's Blog"/>
+<meta property="og:title" content="Subtyping with Algebra"/>
+<meta property="og:description" content="Study subtyping in algebraic approach!"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="/blog/2019/sub-alg.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2019-05-12 00:00:00-04:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="/blog/author/jason-hu.html">
+<meta property="article:section" content="Scala / DOT"/>
+<meta property="article:tag" content="DOT"/>
+<meta property="article:tag" content="programming languages"/>
+<meta property="article:tag" content="research"/>
+<meta property="article:tag" content="type theory"/>
+<meta property="article:tag" content="proof assistants"/>
+<meta property="og:image" content="/blog/images/cover.png">
+
+<!-- Twitter Card -->
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "name": "Subtyping with Algebra",
+  "headline": "Subtyping with Algebra",
+  "datePublished": "2019-05-12 00:00:00-04:00",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "Jason Hu",
+    "url": "/blog/author/jason-hu.html"
+  },
+  "image": "/blog/images/cover.png",
+  "url": "/blog/2019/sub-alg.html",
+  "description": "Study subtyping in algebraic approach!"
+}
+</script>
+</head>
+<!-- TODO : Body class -->
+<body class="home-template">
+
+<nav id="menu">
+  <a class="close-button">Close</a>
+  <div class="nav-wrapper">
+    <p class="nav-label">Menu</p>
+    <ul>
+          <li><a href="/blog/tags.html" role="presentation">Tags</a></li>
+          <li><a href="/blog/categories.html" role="presentation">Categories</a></li>
+
+              <li style="margin: 1em auto" />
+                  <li class="nav-scala-dot active" role="presentation"><a href="/blog/category/scala-dot.html">Scala / DOT</a></li>
+
+
+        <li role="presentation" style="position: fixed; bottom: 0; width: 100%"><a href="/">My CV</a></li>
+    </ul>
+  </div>
+</nav>
+    <!-- Progressbar -->
+    <div class="progress-container">
+        <span class="progress-bar"></span>
+    </div>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header id="post-header" class="has-cover">
+      <div class="inner">
+        <nav id="navigation">
+            <span id="home-button" class="nav-button">
+                <a class="home-button" href="/blog/" title="Home"><i class="ic ic-arrow-left"></i> Home</a>
+            </span>
+          <span id="menu-button" class="nav-button">
+            <a class="menu-button"><i class="ic ic-menu"></i> Menu</a>
+          </span>
+        </nav>
+        <h1 class="post-title">Subtyping with Algebra</h1>
+        <!-- TODO : Proper class for headline -->
+        <span class="post-meta">
+                <a href="/blog/author/jason-hu.html">Jason Hu</a>
+            | <time datetime="Sun 12 May 2019">Sun 12 May 2019</time>
+        </span>
+        <!-- TODO : Modified check -->
+            <div class="post-cover cover" style="background-image: url('/blog/images/cover.png')">
+      </div>
+    </header>
+
+  <section id="wrapper">
+    <a class="hidden-close"></a>
+
+    <!-- Post content -->
+    <main class="content" role="main">
+        <article class="post">
+        <div class="inner">
+            <section class="post-content">
+                <div class="section" id="introduction">
+<h2>Introduction</h2>
+<p>When the subtyping relation in a programming language is rich enough, the relation
+starts to induce some algebraic structure. For example, DOT has intersection types,
+which admits bounded semi-lattice structure, both order theoretically and
+algebraically. However, intersection types in DOT have only been studied in its order
+theoretic nature (probably not even, because order theory studies nothing about the
+contexts!), but nothing about its algebra.</p>
+</div>
+<div class="section" id="motivation">
+<h2>Motivation</h2>
+<p>In my work of <a class="reference external" href="https://gitlab.com/JasonHuZS/AlgDotCalculus">Master's thesis</a>, I
+studied a simplified version of DOT, <span class="math">\(D_{\wedge}\)</span> (pronounced <em>Dee
+Intersect</em>). This calculus has intersection types and data field members. For example,
+<span class="math">\(\{a : S \wedge U\}\)</span> denotes a data field member, the tag of which is <span class="math">\(a\)</span>
+and the type is <span class="math">\(S \wedge U\)</span>. In general, intersection types specify refinement
+of information. The subtyping rules are as follows.</p>
+<div class="math">
+\begin{equation*}
+\dfrac{ }{\Gamma \vdash S \wedge U &lt;: S}(\text{And-E1})
+\quad
+\dfrac{ }{\Gamma \vdash S \wedge U &lt;: U}(\text{And-E2})
+\end{equation*}
+</div>
+<div class="math">
+\begin{equation*}
+\dfrac{\Gamma \vdash T &lt;: S \quad \Gamma \vdash T &lt;: U}
+{\Gamma \vdash T &lt;: S \wedge U}(\text{And-I})
+\end{equation*}
+</div>
+<p>The first two rules says that one can feel free to drop information from intersection
+types, and the third rule asserts that the intersection type is the greatest subtype
+of <span class="math">\(S\)</span> and <span class="math">\(U\)</span>. If <span class="math">\(\Gamma\)</span> is not specified, then these rules are
+an axiomatization of order theoretic meet-semilattice. Together with <span class="math">\(\top\)</span>
+type, which is the supertype of all types, this forms an order theoretic bounded
+meet-semilattice structure.</p>
+<p>So far so natural. However, it's textbook knowledge that order theoretic
+meet-semilattice and algebraic meet-semilattice are interchangeable. Namely, order
+theoretic meet-semilattice induces algebraic structure. Define the <em>induced type
+equivalence relation</em> as follows.</p>
+<div class="math">
+\begin{equation*}
+\Gamma \vdash S \approx U \equiv \Gamma \vdash S &lt;: U \times \Gamma \vdash U &lt;: S
+\end{equation*}
+</div>
+<p>Namely, two types are equivalent, if they are a subtype of each other in the given
+context. So it's easy to see that.</p>
+<div class="math">
+\begin{equation*}
+\Gamma \vdash S \wedge U \approx U \wedge S
+\end{equation*}
+</div>
+<p>This property is called <em>commutativity</em>. In general, regardless of the contexts,
+algebraic bounded semilattice admits all following properties.</p>
+<div class="math">
+\begin{align*}
+\top \wedge T &amp;\approx T &amp;(\text{identity}) \\
+S \wedge U &amp;\approx U \wedge S &amp;(\text{commutativity}) \\
+(S \wedge T) \wedge U &amp;\approx S \wedge (T \wedge U) &amp;(\text{associativity}) \\
+T \wedge T &amp;\approx T &amp;(\text{idempotency})
+\end{align*}
+</div>
+<p>One can prove all of the above using the subtyping relation above.</p>
+<p>What's more, one might expect that intersection types distribute accross data field
+members. Namely,</p>
+<div class="math">
+\begin{equation*}
+\Gamma \vdash \{ a : S \} \wedge \{a : U\} \approx \{a : S \wedge U\}
+\end{equation*}
+</div>
+<p>Note that the type on the left is already provably a supertype of the right, because
+intersection types are the greatest subtypes. However, this type cannot be shown a
+subtype of the right. This requires an axiom, like following</p>
+<div class="math">
+\begin{equation*}
+\dfrac{ }
+{\Gamma \vdash \{ a : S \} \wedge \{a : U\} &lt;: \{a : S \wedge U\}}
+(\text{Fld-Distr})
+\end{equation*}
+</div>
+<p>This rule is required to be an axiom because it cannot be proved by any other existing
+rules. This is normally how it's done in other people's work, but looking at this
+rule, it's easy to realize that it is the algebraic relation that is wanted, not this
+particular subtyping relation. This axiom is here just to make sure the subtyping
+relation <em>induces</em> a desired algebraic relation, but nothing more. Therefore, a
+question arises: why not reason about the algebraic structure directly?</p>
+</div>
+<div class="section" id="algebraic-structure-in-subtyping">
+<h2>Algebraic Structure in Subtyping</h2>
+<p>This is very interesting way of thinking about subtyping. Algebraic approaches are not
+rare in type theoretic study, but somehow, subtyping doesn't quite look &quot;type
+theoretic&quot;. On the other hand, people seem to avoid this way of thinking because it
+simply adds a great deal of difficulties in the study. This is because algebraic
+structure in its essence is &quot;more precise&quot; than subtyping relation, and therefore
+subtyping relation can only be built after the algebra is defined, but not the other
+way around. Visually, a hierarchy like</p>
+<div class="math">
+\begin{equation*}
+\text{Type (raw)} \to \text{Algebra (without context)} \to \text{Subtyping (with contexts)}
+\end{equation*}
+</div>
+<p>needs to be defined.</p>
+<p>Another reason is what we have in proof assistants is not sufficient to
+reason about these nested structures efficiently. To give a good feeling of how
+cumbersome it can be, I formalized a very primitive algebraic relation in
+<span class="math">\(D_{\wedge}\)</span> <a class="reference external" href="https://gitlab.com/JasonHuZS/AlgDotCalculus/blob/master/agda/DintAlg.agda">here</a>.</p>
+<div class="highlight"><pre><span></span><span class="kr">infix</span> <span class="mi">5</span> _≃_
+<span class="kr">data</span> _≃_ <span class="ow">:</span> Typ <span class="ow">→</span> Typ <span class="ow">→</span> <span class="kt">Set</span> <span class="kr">where</span>
+  <span class="nf">refl</span>   <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>T<span class="o">}</span> <span class="ow">→</span> T ≃ T
+  <span class="nf">tran</span>   <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>S T U<span class="o">}</span> <span class="ow">→</span> S ≃ T <span class="ow">→</span> T ≃ U <span class="ow">→</span> S ≃ U
+  <span class="nf">symm</span>   <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>S U<span class="o">}</span> <span class="ow">→</span> S ≃ U <span class="ow">→</span> U ≃ S
+  <span class="nf">assoc</span>  <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>S T U<span class="o">}</span> <span class="ow">→</span> S ∩ <span class="o">(</span>T ∩ U<span class="o">)</span> ≃ S ∩ T ∩ U
+  <span class="nf">comm</span>   <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>S U<span class="o">}</span> <span class="ow">→</span> S ∩ U ≃ U ∩ S
+  <span class="nf">idem</span>   <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>T<span class="o">}</span> <span class="ow">→</span> T ∩ T ≃ T
+  <span class="nf">⊤∩</span>     <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>T<span class="o">}</span> <span class="ow">→</span> ⊤ ∩ T ≃ T
+  <span class="nf">⊥∩</span>     <span class="ow">:</span> <span class="ow">∀</span> <span class="o">{</span>T<span class="o">}</span> <span class="ow">→</span> ⊥ ∩ T ≃ ⊥
+  <span class="nf">∩-cong</span> <span class="ow">:</span> _∩_ Preserves₂ _≃_ ⟶ _≃_ ⟶ _≃_
+</pre></div>
+<p>There are more axioms than listed above. This is because some axioms are needed to
+impose the equivalence relation which does not originally hold if a relation is
+defined from scratch. At last, the congruence property <cite>∩-cong</cite> also needs to be
+asserted to ensure the equivalence is congruence everywhere in the intersection
+types. Then it follows the properties of this equivalence, like proving this
+equivalence respects the subtyping relation, as well as other algebraic
+theorems. Moreover, this equivalence is very hard to work with, so to make things a
+bit easier, more auxiliary concepts need to be defined. What a pain.</p>
+</div>
+<div class="section" id="cubical-type-theory">
+<h2>Cubical Type Theory</h2>
+<p>This sort of algebraic study is painful, because even the basic structure of the
+relation requires <em>proofs</em>. For example, this relation is not an equivalence by birth;
+it is only after a proof is established. Due to this, the congruence properties
+require more proofs and it's probably the most boring thing to do.</p>
+<p>However, this is not a deadend. Cubical type theory is a richer theory than
+intuitionistic type theory and a more helpful one when reasoning about &quot;algebras up to
+equivalences&quot;. In cubical type theory, higher inductive types (HIT) allow data to
+carry internal algebraic structure. For example, one can define <span class="math">\(S \wedge U = U
+\wedge S\)</span> by definition. This means from the outside world, when a <span class="math">\(D_{\wedge}\)</span>
+type is perceived, it's that type up to algebra as desired above. What's more, it's
+perfectly congurent, due to the type theory.</p>
+<p>Then looking back to what was wanted above,</p>
+<div class="math">
+\begin{equation*}
+\{ a : S \} \wedge \{a : U\} \approx \{a : S \wedge U\}
+\end{equation*}
+</div>
+<p>If we define</p>
+<div class="math">
+\begin{equation*}
+f(T) \equiv \{a : T\}
+\end{equation*}
+</div>
+<p>then</p>
+<div class="math">
+\begin{equation*}
+f(S) \wedge f(U) \approx f(S \wedge U)
+\end{equation*}
+</div>
+<p>simply means that data field members are semi-lattice homomorphism. From category
+theoretic point of view, <span class="math">\(f\)</span> is considered functorial. Everything starts to look
+very simple from this point on. Moreover, the subtyping relation can remain untouched.
+It simply gives more structure to the underlying definition of types in
+<span class="math">\(D_{\wedge}\)</span>. The theory therefore gives more structure than
+intuitionistic type theory in order to study the problem, which does not seem to be
+explored at the moment. I am very interested to see how this new type theory can
+change the way people think about problems in.</p>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion</h2>
+<p>Every problem in DOT is very difficult and tricky. At least it is the case at this
+moment. One good way to tackle this problem should be to lower the difficulty of the
+problem itself by improving the tools, not necessarily to invest more time on tackle a
+hard problem. I feel that cubical type theory is the right type theory to talk about
+DOT. However, changing the way of thinking is never an easy task to begin with. I hope
+one day type theory can be so advanced that even DOT becomes a piece of cake.</p>
+</div>
+<script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+            </section>
+
+            <section class="post-info">
+                <div class="post-share">
+                    <a class="twitter" href="https://twitter.com/share?text=Subtyping with Algebra&amp;url=/blog/2019/sub-alg.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <i class="ic ic-twitter"></i><span class="hidden">Twitter</span>
+                    </a>
+                    <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=/blog/2019/sub-alg.html" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <i class="ic ic-facebook"></i><span class="hidden">Facebook</span>
+                    </a>
+                    <a class="googleplus" href="https://plus.google.com/share?url=/blog/2019/sub-alg.html" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <i class="ic ic-googleplus"></i><span class="hidden">Google+</span>
+                    </a>
+                    <div class="clear"></div>
+                </div>
+
+                <aside class="post-tags">
+<a href="/blog/tag/dot.html">DOT</a><a href="/blog/tag/programming-languages.html">programming languages</a><a href="/blog/tag/research.html">research</a><a href="/blog/tag/type-theory.html">type theory</a><a href="/blog/tag/proof-assistants.html">proof assistants</a>                </aside>
+
+                <div class="clear"></div>
+
+
+                </section>
+
+
+                <aside class="post-nav">
+                    <div class="clear"></div>
+                </aside>
+
+            </div>
+        </article>
+    </main>
+      <!-- TODO : Body class -->
+    <div id="body-class" style="display: none;" class=""></div>
+
+    <footer id="footer">
+      <div class="inner">
+        <section class="credits">
+            
+
+            <span class="credits-theme">theme modified based on <a href="https://github.com/arulrajnet/attila" rel="nofollow">Attila</a></span>
+            <span class="credits-software">Published with <a href="https://github.com/getpelican/pelican" rel="nofollow">Pelican</a></span>
+            <span>© Jason Hu All Rights Reserved</span>
+        </section>
+      </div>
+    </footer>
+  </section>
+
+  <script type="text/javascript" src="/blog/theme/js/script.js"></script>
+
+</body>
+</html>
