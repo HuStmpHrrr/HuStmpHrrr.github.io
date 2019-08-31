@@ -163,7 +163,7 @@
                                         </p>
                                             <p>研究DOT运算子的（不可）判定性和算法性质。</p>
                                             <div>
-                                                <div class="abstract-hideshow">Abstract</div>
+                                                <div class="abstract-hideshow" data-toggle="tooltip" data-placement="left" title="Click me">Abstract</div>
                                                 <p class="paragraph keep-space">Dependent Object Types, or DOT, is a family of calculi developed to study the Scala programming language. These calculi have path dependent types as a feature, and potentially intersection types, union types and recursive types. So far, the study of DOT calculi mostly focuses on the soundness proof, which does not directly contribute to development of compilers. This thesis presents a detailed investigation of decidability and algorithmic properties of the family of DOT calculi.<br/>In decidability analysis, the undecidability of subtyping of several calculi is formally established, including the D<: and D∧ calculi. Prior to this investigation, the undecidability of subtyping of all DOT calculi including D<: was open. Decidability analysis puts emphasis on a particular form of subtyping rules, called normal form. It turns out that a normal form definition is not only as expressive, but also more suggestive than the original definition. A conceptual device, called small-step analysis, is introduced to assist converting a usual definition of subtyping to its normal form definition. Moreover, decidability analysis gives direct contributions to the algorithmic analysis, by revealing two decidable fragments of D<: in declarative form, called the kernels. Decidability analysis also suggests a novel subtyping algorithm framework, stare-at subtyping. Stare-at subtyping and an existing algorithm are shown to be sound and complete w.r.t. their corresponding kernels.<br/>In algorithmic analysis, stare-at subtyping is extended to other calculi, with more features than D<:, including D∧, μDART and jDOT. In μDART and jDOT, bi-directional type assignment algorithms are developed. The algorithms developed in this thesis are all shown to be sound with respect to their target calculi and terminating.<br/>During the development of the algorithms, analysis shows a number of ways in which the Wadlerfest DOT calculus does not directly correspond to the Scala language, while substantially increases the difficulties of algorithmic design. jDOT, therefore, is developed as an alternative formalization of Scala.</p>
                                             </div>
                                     </div>
@@ -370,6 +370,9 @@
                  var target = $(event.target);
                  target.next().toggle("slow");
              }).next().hide();
+         });
+         $(document).ready(function(){
+             $('[data-toggle="tooltip"]').tooltip();
          });
         </script>
         
