@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+
+  <title>A Complement of My Thesis: Naming Conventions and Choice of Proof Assistants</title>
+
+
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="origin" />
+  <meta name="generator" content="Pelican" />
+  <link href="/blog/" rel="canonical" />
+
+  <!-- Feed -->
+        <link href="/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Jason Hu's Blog Full Atom Feed" />
+          <link href="/blog/feeds/{slug}.atom.xml" type="application/atom+xml" rel="alternate" title="Jason Hu's Blog Categories Atom Feed" />
+
+  <link href="/blog/theme/css/style.css" type="text/css" rel="stylesheet" />
+
+  <!-- Code highlight color scheme -->
+      <link href="/blog/theme/css/code_blocks/github.css" rel="stylesheet">
+
+
+  <!-- Custom fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300' rel='stylesheet' type='text/css' />
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Zilla+Slab" rel="stylesheet"> 
+  
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+
+  <link href="/blog/2019/agda-vs-coq.html" rel="canonical" />
+
+    <meta name="description" content="An explanation of why I separate decidability analysis and algorithmic analysis into Agda and Coq in the technical work of my master's thesis.">
+
+    <meta name="author" content="Jason Hu">
+
+    <meta name="tags" content="DOT">
+    <meta name="tags" content="programming languages">
+    <meta name="tags" content="research">
+    <meta name="tags" content="proof assistants">
+
+
+
+
+<!-- Open Graph -->
+<meta property="og:site_name" content="Jason Hu's Blog"/>
+<meta property="og:title" content="A Complement of My Thesis: Naming Conventions and Choice of Proof Assistants"/>
+<meta property="og:description" content="An explanation of why I separate decidability analysis and algorithmic analysis into Agda and Coq in the technical work of my master's thesis."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="/blog/2019/agda-vs-coq.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2019-08-15 00:00:00-04:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="/blog/author/jason-hu.html">
+<meta property="article:section" content="Scala / DOT"/>
+<meta property="article:tag" content="DOT"/>
+<meta property="article:tag" content="programming languages"/>
+<meta property="article:tag" content="research"/>
+<meta property="article:tag" content="proof assistants"/>
+<meta property="og:image" content="/blog/images/cover.png">
+
+<!-- Twitter Card -->
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "name": "A Complement of My Thesis: Naming Conventions and Choice of Proof Assistants",
+  "headline": "A Complement of My Thesis: Naming Conventions and Choice of Proof Assistants",
+  "datePublished": "2019-08-15 00:00:00-04:00",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "Jason Hu",
+    "url": "/blog/author/jason-hu.html"
+  },
+  "image": "/blog/images/cover.png",
+  "url": "/blog/2019/agda-vs-coq.html",
+  "description": "An explanation of why I separate decidability analysis and algorithmic analysis into Agda and Coq in the technical work of my master's thesis."
+}
+</script>
+</head>
+<!-- TODO : Body class -->
+<body class="home-template">
+
+<nav id="menu">
+  <a class="close-button">Close</a>
+  <div class="nav-wrapper">
+    <p class="nav-label">Menu</p>
+    <ul>
+          <li><a href="/blog/tags.html" role="presentation">Tags</a></li>
+          <li><a href="/blog/categories.html" role="presentation">Categories</a></li>
+
+              <li style="margin: 1em auto" />
+                  <li class="nav-scala-dot active" role="presentation"><a href="/blog/category/scala-dot.html">Scala / DOT</a></li>
+
+
+        <li role="presentation" style="position: fixed; bottom: 0; width: 100%"><a href="/">My CV</a></li>
+    </ul>
+  </div>
+</nav>
+    <!-- Progressbar -->
+    <div class="progress-container">
+        <span class="progress-bar"></span>
+    </div>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header id="post-header" class="has-cover">
+      <div class="inner">
+        <nav id="navigation">
+            <span id="home-button" class="nav-button">
+                <a class="home-button" href="/blog/" title="Home"><i class="ic ic-arrow-left"></i> Home</a>
+            </span>
+          <span id="menu-button" class="nav-button">
+            <a class="menu-button"><i class="ic ic-menu"></i> Menu</a>
+          </span>
+        </nav>
+        <h1 class="post-title">A Complement of My Thesis: Naming Conventions and Choice of Proof Assistants</h1>
+        <!-- TODO : Proper class for headline -->
+        <span class="post-meta">
+                <a href="/blog/author/jason-hu.html">Jason Hu</a>
+            | <time datetime="Thu 15 August 2019">Thu 15 August 2019</time>
+        </span>
+        <!-- TODO : Modified check -->
+            <div class="post-cover cover" style="background-image: url('/blog/images/cover.png')">
+      </div>
+    </header>
+
+  <section id="wrapper">
+    <a class="hidden-close"></a>
+
+    <!-- Post content -->
+    <main class="content" role="main">
+        <article class="post">
+        <div class="inner">
+            <section class="post-content">
+                <p>In my <a class="reference external" href="https://gitlab.com/JasonHuZS/AlgDotCalculus">thesis</a>, I exclusively used Agda
+for decidability analysis and and Coq for algorithmic analysis. This decision is based
+on an unobvious technical observation. This blog explains this technical observation,
+and why it would have been extremely difficult to work out the same undecidability
+proof in Coq.</p>
+<div class="section" id="summary">
+<h2>Summary</h2>
+<p>To give a high-level summary, the main difficulties to establish the same proof in Coq
+as in Agda are:</p>
+<ol class="arabic simple">
+<li>inference rules live in Prop instead of Type,</li>
+<li>names are represented by locally nameless and cofinite representation in
+formalization in Coq, and</li>
+<li>termination checking in Coq requires a specified decreasing structure.</li>
+</ol>
+<p>This difficulties are mainly encountered when attempting to show transitivity of
+<span class="math">\(D_{&lt;:}\)</span> normal form (Theorem 3.20).  These points requires more careful
+technical setup to be fully clear.</p>
+</div>
+<div class="section" id="type-and-prop">
+<h2><tt class="docutils literal">Type</tt> and <tt class="docutils literal">Prop</tt></h2>
+<p>Though the majority of my work is in Coq, the undecidability proofs discussed in
+Chapter 3, were done in Agda. This is not simply for reasons like “wow, it would be
+cool to use two proof assistants”, but for something more fundamental.</p>
+<p>The first difficulty is about proof relevant universes versus proof irrelevant
+universes. Up until Agda 2.5.4.2, Agda has no universe for propositions (but there is
+one now in Agda 2.6+), which means the entire language resides in a predicative
+universe hierarchy (called <tt class="docutils literal">Set</tt>s). On the other hand, Coq is way more
+complicated. It has not only the predicative universe hierarchy as in Agda (called
+<tt class="docutils literal">Type</tt>s), but also other two universes, <tt class="docutils literal">Set</tt> and <tt class="docutils literal">Prop</tt>. It is very
+misleading that <tt class="docutils literal">Set</tt> in Coq is not the same as <tt class="docutils literal">Set</tt>s in Agda. Specifically,
+<tt class="docutils literal">Set</tt> in Coq is a small universe which can only contain data. <tt class="docutils literal">Set</tt>s in Agda
+corresponds to <tt class="docutils literal">Type</tt>s in Coq.</p>
+<p>The problem here is that <tt class="docutils literal">Prop</tt> in Coq is a proof irrelevant universe. Proof
+irrelevance is a concept stating that terms inhabited in types that are <tt class="docutils literal">Prop</tt> are
+purely logical and any two proofs of the same proposition are considered identical. A
+<tt class="docutils literal">Prop</tt> in Coq can only be eliminated into data (<tt class="docutils literal">Set</tt> and <tt class="docutils literal">Type</tt>) when the
+definition of the <tt class="docutils literal">Prop</tt> satisfies <em>singleton elimination principle</em>.</p>
+<p>In programming languages, it is a convention to put inference rules in
+<tt class="docutils literal">Prop</tt>. Therefore, libraries designed for programming languages researchers assumes
+it is the case.</p>
+<p>First, let me explain what <tt class="docutils literal">Prop</tt> cannot do. Consider the following two types.</p>
+<div class="math">
+\begin{equation*}
+\begin{aligned}
+  \exists x, P(x) \\
+  \Sigma x, P(x)
+\end{aligned}
+\end{equation*}
+</div>
+<p>The first one is existential quantification, which is typical in logic.  It simply
+confirms the existence of something but gives away no precise information of the
+witness. The second one is called a <span class="math">\(\Sigma\)</span> type and represents a pair, where
+the type of the second element depends on the value of the first element. For example,
+let us assume</p>
+<div class="math">
+\begin{equation*}
+\begin{aligned}
+  x \in \{\text{morning}, \text{noon}, \text{evening}\}
+\end{aligned}
+\end{equation*}
+</div>
+<p>and <span class="math">\(P\)</span> is meal. If <span class="math">\(x\)</span> is morning, then <span class="math">\(P(x)\)</span> is breakfast, and
+cereal is one of the values. If <span class="math">\(x\)</span> is evening, then <span class="math">\(P(x)\)</span> is dinner, and
+steak is one of the values. Having a <span class="math">\(\Sigma\)</span> type, I can know the time,
+together with a concrete proof that there will be a meal at that time. This is because
+<span class="math">\(\Sigma\)</span> type stores data. In general,</p>
+<div class="math">
+\begin{equation*}
+\begin{aligned}
+  \Sigma x, P(x) \Rightarrow \exists x, P(x)\end{aligned}
+\end{equation*}
+</div>
+<p>This is because one can always forget about the information. Instead of saying the
+information is about the dinner in the evening, I can always forget about the time and
+only be concerned about the fact that there will be food for the day without even
+caring about when it is. Clearly, I have lost information by going through this
+direction.</p>
+<p>Though consistent with the theory, the other way is not generally provable.</p>
+<div class="math">
+\begin{equation*}
+\begin{aligned}
+  \exists x, P(x) \nRightarrow \Sigma x, P(x)\end{aligned}
+\end{equation*}
+</div>
+<p>This direction requires an axiom, called the <em>indefinite description</em> or <em>Hilbert’s</em>
+<span class="math">\(\epsilon\)</span>. This axiom turns out to be very strong as it can be used to prove
+the axiom of choice. In short, the proof irrelevant nature of universe <tt class="docutils literal">Prop</tt>
+forgets the internal structures of derivations of inference rules and prevents
+their treatment as pieces of data, because in <tt class="docutils literal">Prop</tt>, any two proofs of the same
+conclusion are considered the same.</p>
+<p>However, when considering undecidability proof, I have to consider interactions
+between features in a judgment derivation using Gentzen's style of proof
+induction. This, in turn, is to treat proofs as prices of structural data. This view
+naturally contradicts to the philosophy of proof irrelevance.</p>
+<p>This problem is fundamental. Technically, the barrier between <tt class="docutils literal">Prop</tt> and <tt class="docutils literal">Type</tt> is
+firm in Coq. Since there is virtually no way to extract data information from <tt class="docutils literal">Prop</tt>
+(except when the definition satisfies singleton elimination which is very often not
+the case), if a proof step requires induction on a definition in <tt class="docutils literal">Prop</tt>, then it
+forces all other dependent definitions into <tt class="docutils literal">Prop</tt> as well. An alternative solution
+is to turn this definition a <tt class="docutils literal">Type</tt>, which is not always possible.</p>
+<p>In contrast, Agda has no proof irrelevant universe, so such problem simply does not
+occur. Even in Agda 2.6, the majority of concepts are defined in <cite>Set</cite>s, which
+limits the troubles created by proof irrelevance.</p>
+<p>In my opinion, most of the proof techniques in programming languages are representable
+in first order fragment of intuitionistic type theory, so requirement of <tt class="docutils literal">Prop</tt> does
+not look justified. For other proofs that cannot be shown in the first order fragment,
+it is likely that having <tt class="docutils literal">Prop</tt> is not going to resolve this issue.  It appears
+<tt class="docutils literal">Prop</tt> does not give many advantages from this perspective. Therefore, working with
+proof relevant universes had been a much better choice.</p>
+<p>It might still have been still possible to establish transitivity of <span class="math">\(D_{&lt;:}\)</span>
+normal form. However, a particular name representation had introduced significant
+difficulties to the problem which makes establishment of the property very unlikely.</p>
+</div>
+<div class="section" id="name-representations">
+<h2>Name Representations</h2>
+<p>In informal presentation of programming languages, we often use Barendregt's
+convention of <span class="math">\(\alpha\)</span> conversions. That is, all terms and types are considered
+the same if free variables are the permuted. In formal analysis, however, such
+equivalence is too abstract to represent. Very often, other name representations are
+used instead. Among these representation, de Bruijn indices are one choice. In de
+Bruijn indices, each name is presented as a natural number, indexing the
+telescope. Intuitively, de Bruijn indices take a quotient of the set of terms and
+types over all names.</p>
+<p>Another possibility is locally nameless representation with cofinite quantification
+(or LN-cofinite in short). In this representation, a name has dual representation: a
+string when bound in the telescope, or a de Bruijn index when is closed in a term or a
+type.</p>
+<p>There are many advantages of LN-cofinite in the context of soundness proofs. However,
+this name representation does not have all advantages over other name representations,
+and there is one particular issue with LN-cofinite which gives substantial trouble
+with interacting with <tt class="docutils literal">Prop</tt>.</p>
+<div class="section" id="cofinite-quantification">
+<h3>Cofinite quantification</h3>
+<p><a class="footnote-reference" href="#id2" id="id1">[1]</a> introduced LN-cofinite as an answer to the POPLmark challenges. In LN-cofinite,
+when a fresh name is needed, such free name is specified by a universal
+quantification, with a condition of not being contained in a specific finite name
+store, hence <em>cofinite</em>. For ease of presentation, I will use <span class="math">\(F_{&lt;:}^-\)</span> has an
+example. Note that there are other ways to resolve the situation in <span class="math">\(F_{&lt;:}^-\)</span>,
+because it is not as complicated as <span class="math">\(D_{&lt;:}\)</span>. I use <span class="math">\(F_{&lt;:}^-\)</span> only
+because it has less rules and it is exposed to the same problem.</p>
+<div class="math">
+\begin{equation*}
+\begin{aligned}
+&amp;\dfrac{ }{\Gamma \vdash T &lt;: \top} \text{(Top)} \quad
+\dfrac{ }{\Gamma \vdash X &lt;: X} \text{(Refl)} \quad
+\dfrac{X &lt;: T \in \Gamma \quad \Gamma \vdash T &lt;: U}{\Gamma \vdash X &lt;: U}
+\text{(Var)} \\\\
+&amp;\dfrac{\Gamma \vdash S_2 &lt;: S_1 \quad \Gamma ; X &lt;: S_2 \vdash U_1 &lt;: U_2}{\Gamma
+\vdash \forall X &lt;: S_1. U_1 &lt;: \forall X &lt;: S_2. U_2} \text{(All)}
+\end{aligned}
+\end{equation*}
+</div>
+<p>Notice that this definition of <span class="math">\(F_{&lt;:}^-\)</span> uses Barendregt's convention as it
+implicitly requires <span class="math">\(\alpha\)</span> conversion in the All rule when drawing a fresh
+<span class="math">\(X\)</span> as a type variable.  A formal definition using LN-cofinite would define the
+All rule alternatively as follows:</p>
+<div class="math">
+\begin{equation*}
+\dfrac{\Gamma \vdash S_2 &lt;: S_1 \quad \Pi X, X \notin L \to \Gamma ; X &lt;: S_2 \vdash U_1 &lt;: U_2}{\Gamma
+\vdash \forall X &lt;: S_1. U_1 &lt;: \forall X &lt;: S_2. U_2} \text{(All')}
+\end{equation*}
+</div>
+<p>I use <span class="math">\(\Pi\)</span> to denote universal quantification in type theory, in order to
+distinguish the symbol <span class="math">\(\forall\)</span> which has been used as a part of the syntax in
+<span class="math">\(F_{&lt;:}^-\)</span>.</p>
+<p>Notice that, in this formal definition, <span class="math">\(L\)</span> is a finite name store. The second
+premise in All' holds for any <span class="math">\(X\)</span> that is not contained in <span class="math">\(L\)</span>.  That is,
+in this judgment, it remembers a finite set of names <span class="math">\(L\)</span>, and the fresh names
+drawn in the second premise must avoid <span class="math">\(L\)</span>. Since the set of all names are
+countably infinite, excluding a finite number of them will not exclude all names. In
+a universal type, e.g.  <span class="math">\(\forall X &lt;:S.U\)</span>, <span class="math">\(X\)</span> on the other hand, is
+presented by a de Bruijn index, and it is 0 in this case.</p>
+</div>
+<div class="section" id="noncanonical-derivation-of-cofinite-quantification">
+<h3>Noncanonical derivation of cofinite quantification</h3>
+<p>LN-cofinite captures much intuition, but there are gaps between it and Barendregt's
+convention. In particular, with <span class="math">\(\alpha\)</span> conversion, we usually consider a
+given derivation has fixed subderivations; namely, the shape of any subderivation is
+fixed up to permutations of names. This assumption, unfortunately, is <em>false</em> with
+LN-cofinite.</p>
+<p>Let us consider the All' rule again:</p>
+<div class="math">
+\begin{equation*}
+\dfrac{\Gamma \vdash S_2 &lt;: S_1 \quad \Pi X, X \notin L \to \Gamma ; X &lt;: S_2 \vdash U_1 &lt;: U_2}{\Gamma
+\vdash \forall X &lt;: S_1. U_1 &lt;: \forall X &lt;: S_2. U_2} \text{(All')}
+\end{equation*}
+</div>
+<p>In this rule, the second premise resides in a universal quantification, which is a
+function space in the type theory. Since it is a <span class="math">\(\Pi\)</span> type, the proof term is
+some function. Consider the following implementation:</p>
+<div class="highlight"><pre><span></span><span class="k">fun</span> <span class="n">X</span> <span class="o">(</span><span class="n">X_notin_L</span> <span class="o">:</span> <span class="n">X</span> <span class="o">`</span><span class="n">notin</span><span class="o">`</span> <span class="n">L</span><span class="o">)</span> <span class="o">=&gt;</span>
+  <span class="k">if</span> <span class="n">X</span> <span class="o">==</span> <span class="n">Y</span> <span class="k">then</span> <span class="c">(* ... a proof term specialized for Y *)</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="n">X</span> <span class="o">==</span> <span class="n">Z</span> <span class="k">then</span> <span class="c">(* ... a proof term specialize for Z *)</span>
+  <span class="k">else</span> <span class="c">(* ... other proof terms *)</span>
+</pre></div>
+<p>In particular, proof terms when <span class="math">\(Y\)</span> is picked and <span class="math">\(Z\)</span> is picked do not
+have to look the same. This is even worse when transitivity and reflexivity are a part
+of the definition. For any derivation <span class="math">\(D\)</span> which witnesses <span class="math">\(\Gamma \vdash S
+&lt;: U\)</span>, following derivation is also a witness of the same conclusion:</p>
+<div class="math">
+\begin{equation*}
+\dfrac{\Gamma \vdash S &lt;: U \quad \Gamma \vdash U &lt;: U\text{(Refl)}}{\Gamma \vdash S &lt;: U}\text{(Trans)}
+\end{equation*}
+</div>
+<p>Define this trivial expansion of derivation tree <span class="math">\(f(D)\)</span>. Since a set of names
+excluding any finite set remains countably infinite, there exists an isomorphism
+between this set and natural numbers. Call this isomorphism <span class="math">\(I\)</span>. Consider a
+proof <span class="math">\(H\)</span> witnessing <span class="math">\(\Pi X, X \notin L \rightarrow
+\Gamma; X &lt;: S' \vdash U_X &lt;: U'_X\)</span>.  Then one can derive a proof term, so that
+the forms of the subtyping derivations between return types generated by different
+type variables are completely “distorted”.</p>
+<div class="math">
+\begin{equation*}
+\begin{aligned}
+  H' &amp;: \Pi X, X \notin L \Rightarrow \Gamma; X &lt;: S' \vdash U_X &lt;: U'_X \\
+  H' &amp;:= \lambda X (N : X \notin L). Rec(I(X), H(X, N))  \\
+  Rec(0, D) &amp;:= D \\
+  Rec(1 + n, D) &amp;:= Rec(n, f(D))
+  \end{aligned}
+\end{equation*}
+</div>
+<p>The idea is that <span class="math">\(H'\)</span> expands an existing proof <span class="math">\(H\)</span> using the expansion
+function above so that a pair of derivations generated by two difference choices of
+names are not going to be the same.</p>
+<p>In the construction of <span class="math">\(H'\)</span>, I first extract an existing proof from
+<span class="math">\(H\)</span>. Then for any given valid choice of name <span class="math">\(X\)</span>, the isomorphism
+<span class="math">\(I\)</span> between the set of names and natural numbers converts <span class="math">\(X\)</span> to a natural
+number. This natural number is used to count the number of interations of applications
+of <span class="math">\(f\)</span> to the existing proof. Since any two distinct names are not mapped to the
+same natural numbers, and there are infinite number of names, it is clear that sizes
+of derivations in <span class="math">\(F_{&lt;:}^-\)</span> are in generally not measurable by natural numbers.</p>
+<p>On the other hand, we assume derivations are trees and therefore their depths can be
+measured by natural numbers. This distinction is not quite compatible with the
+classical view of Gentzen's style proof induction.</p>
+</div>
+</div>
+<div class="section" id="termination-checking">
+<h2>Termination Checking</h2>
+<p>Before turning our attention to the problem with LN-cofinite, it is worth briefly
+mentioning the strategies of termination checking in Coq and Agda.</p>
+<p>Though very often inferred, termination checking in Coq indeed requires a specified
+<tt class="docutils literal">struct</tt> parameter so that the termination checker knows which structure the
+fixpoint decreases on. This strategy works similar in both <tt class="docutils literal">Prop</tt> and <tt class="docutils literal">Type</tt> in
+Coq.</p>
+<p>On the other hand, in Agda, the strategy is slightly different. In Agda, the
+termination checker directly checks each call site of the function being defined (or
+functions in the context of mutual definitions) to ensure the parameters are
+decreasing in a lexicographical order. Note that this method is weaker than the one used
+in Coq, though ultimately equivalent as it can be done manually in Coq by using some
+well-founded induction.</p>
+<p>That being said, sometimes this distinction can induce significant differences of
+engineering effort. The problem is much easier to surface when considering
+well-founded induction of some <tt class="docutils literal">Prop</tt>, e.g. well-founded induction on the depth of
+the derivations.</p>
+</div>
+<div class="section" id="interacting-with-prop">
+<h2>Interacting with <tt class="docutils literal">Prop</tt></h2>
+<p>There are various proofs in my thesis requiring well-founded induction on the number
+of steps in the derivation of a judgment. On paper, this is usually not a problem; as
+indicated earlier, we often consider a derivation is a (finite) tree and therefore
+there is always a maximum depth of a derivation, following Gentzen's style. However,
+in a previous section, I showed that this view is not well compatible with
+LN-cofinite, as there are subderivations living in function spaces. Note that I will
+be using <span class="math">\(F_{&lt;:}^-\)</span> as an example here for ease of presentation. However, there
+are workarounds for the problem presented here, so <span class="math">\(F_{&lt;:}^-\)</span> itself does not
+suffer much from it. My point is that, in more sophisticated proofs like transitivity
+of <span class="math">\(D_{&lt;:}\)</span>, due to the intervene of complex inductive scheme, a workaround does
+not seem to exist, and therefore the problem about to be presented here is more
+significant for those calculi.</p>
+<p>Let us consider how to measure the size of a derivation if it is defind in
+<tt class="docutils literal">Type</tt>. As shown previously, natural numbers are not big enough, so the following
+definition is used instead.</p>
+<div class="highlight"><pre><span></span><span class="kn">Inductive</span> <span class="n">card</span> <span class="o">:</span> <span class="kt">Type</span> <span class="o">:=</span>
+<span class="o">|</span> <span class="n">base</span> <span class="o">:</span> <span class="n">card</span>
+<span class="o">|</span> <span class="n">rec</span> <span class="o">:</span> <span class="n">card</span> <span class="o">-&gt;</span> <span class="n">card</span>
+<span class="o">|</span> <span class="n">clsr</span> <span class="o">:</span> <span class="k">forall</span> <span class="n">L</span><span class="o">,</span> <span class="n">card</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="k">forall</span> <span class="n">x</span><span class="o">,</span> <span class="n">x</span> <span class="o">`</span><span class="n">notin</span><span class="o">`</span> <span class="n">L</span> <span class="o">-&gt;</span> <span class="n">card</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">card</span><span class="o">.</span>
+</pre></div>
+<p>In this definition, <tt class="docutils literal">card</tt> stands for cardinal. If the subtyping relation is defined
+in <tt class="docutils literal">Type</tt>, then a function can be defined to convert the derivation to <tt class="docutils literal">card</tt>. One
+can easily define a well-founded relation on <tt class="docutils literal">card</tt>, and therefore it is possible to
+do well-founded induction with LN-cofinite.  However, if the subtyping relation is
+defined in <tt class="docutils literal">Prop</tt>, as it is usually done, then <tt class="docutils literal">card</tt> does not measure the size of
+a derivation anymore.</p>
+<p>The first trouble is, one cannot define a function converting a derivation to a
+<tt class="docutils literal">card</tt>, because it would require elimination from <tt class="docutils literal">Prop</tt> to <tt class="docutils literal">Type</tt>, which is in
+general not possible except when the <tt class="docutils literal">Prop</tt> satisfies singleton elimination
+principle.</p>
+<p>A possible solution to this, is to use a relation to associate every derivation with a
+measure. That is the following equivalence:</p>
+<div class="math">
+\begin{equation*}
+\begin{aligned}
+  \Gamma \vdash S &lt;: U \Leftrightarrow \exists c, \Gamma \vdash [ c ] S &lt;: U
+\end{aligned}
+\end{equation*}
+</div>
+<p>The equivalence shows an equivalence between the original subtyping relation and an
+enriched subtyping relation, denoted by <span class="math">\(\Gamma \vdash [ c ] S &lt;: U\)</span>. In this
+relation, <span class="math">\(\Gamma\)</span>, <span class="math">\(S\)</span> and <span class="math">\(U\)</span> represent precisely what
+<span class="math">\(\Gamma \vdash S &lt;: U\)</span> means. In addition to that, a fourth parameter <span class="math">\(c\)</span>
+represents the cardinal of <span class="math">\(\Gamma \vdash S &lt;: U\)</span>, defined by <tt class="docutils literal">card</tt>
+aboved. That is, <span class="math">\(c\)</span> is used to remember the cardinal of a given subtyping
+derivation.  For completeness, the full definition of this four-place relation is
+defined as follows:</p>
+<div class="math">
+\begin{equation*}
+\begin{aligned}
+&amp;\dfrac{ }{\Gamma \vdash [\texttt{base}] T &lt;: \top} \text{(C-Top)} \quad
+\dfrac{ }{\Gamma \vdash [\texttt{base}] X &lt;: X} \text{(C-Refl)} \\\\\
+&amp;\dfrac{X &lt;: T \in \Gamma \quad \Gamma \vdash [\texttt{c}] T &lt;: U}{\Gamma \vdash [\texttt{rec
+c}] X &lt;: U}
+\text{(C-Var)} \\\\
+&amp;\dfrac{\Gamma \vdash [\texttt{c}] S_2 &lt;: S_1 \quad \Pi\; X\; (NI : X \notin L), \Gamma ;
+X &lt;: S_2 \vdash [\texttt{d X NI}] U_1 &lt;: U_2}{\Gamma
+\vdash [\texttt{clsr c d}] \forall X &lt;: S_1. U_1 &lt;: \forall X &lt;: S_2. U_2} \text{(C-All)}
+\end{aligned}
+\end{equation*}
+</div>
+<p>Reviewing these rules, one can realize that indeed the cardinal measures a
+derivation. It is easy to show that</p>
+<div class="math">
+\begin{equation*}
+\begin{aligned}
+  \exists c, \Gamma \vdash [ c ] S &lt;: U \Rightarrow \Gamma \vdash S &lt;: U
+\end{aligned}
+\end{equation*}
+</div>
+<p>This can be proved by forgetting <span class="math">\(c\)</span>.</p>
+<p>However, the other direction is not quite easy.</p>
+<div class="math">
+\begin{equation*}
+\begin{aligned}
+  \Gamma \vdash S &lt;: U \Rightarrow \exists c, \Gamma \vdash [ c ] S &lt;: U
+\end{aligned}
+\end{equation*}
+</div>
+<p>This is because the subtyping relation lives in <tt class="docutils literal">Prop</tt> and that the All' rule uses a
+function space for its subderivation. Consider a proof attempt by induction. The All'
+rule generates the following antecedents in the proof context:</p>
+<ol class="arabic simple">
+<li><span class="math">\(\Gamma \vdash S_2 &lt;: S_1\)</span>,</li>
+<li><span class="math">\(\Pi X, X \notin L \to \Gamma ; X &lt;: S_2 \vdash U_1 &lt;: U_2\)</span>,</li>
+<li><span class="math">\(\Gamma \vdash [\texttt{c}] S_2 &lt;: S_1\)</span>,</li>
+<li><span class="math">\(\Pi X, X \notin L \to \exists d, \Gamma ; X &lt;: S_2 \vdash [\texttt{d}] U_1 &lt;: U_2\)</span>,</li>
+</ol>
+<p>The goal is</p>
+<div class="math">
+\begin{equation*}
+\exists e, \Gamma \vdash [\texttt{e}] \forall X &lt;: S_1. U_1 &lt;: \forall X &lt;: S_2. U_2
+\end{equation*}
+</div>
+<p>According to the C-All rule, this <span class="math">\(e\)</span> is constructed by <tt class="docutils literal">clsr</tt>, and <cite>c</cite> is
+already known. The trouble is <span class="math">\(d\)</span>, which has type <span class="math">\(\Pi X, X \notin L \to
+\texttt{card}\)</span>.  This ought to be constructed from the fourth antecedent. However,
+this cannot be done. Notice that this target type is in <tt class="docutils literal">Type</tt>, while the fourth
+antecedent lives in <tt class="docutils literal">Prop</tt>. Due to the isolation between <tt class="docutils literal">Prop</tt> and <tt class="docutils literal">Type</tt>, one
+cannot construct a <tt class="docutils literal">Type</tt> out of <tt class="docutils literal">Prop</tt> (clearly this function space does not
+satisfy singleton elimination).</p>
+<p>Looking at the form of the fourth antecedent, to derive <span class="math">\(\Pi X, X \notin L \to
+\texttt{card}\)</span>, at least the axiom of Choice seems necessary. Surely this can be done
+by postulating it, as Choice is compatible with Coq. If one resists postulating axioms
+in type theory, it has come to a deadend. Yet, if de Bruijn indices are used, there is
+no need to use other axioms. Namely, <span class="math">\(\Gamma \vdash S &lt;: U \Rightarrow \exists
+c, \Gamma \vdash [ c ] S &lt;: U\)</span> can already be proven purely constructively with de
+Bruijn indices.</p>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion</h2>
+<p>In this blog, I showed that how LN-cofinite interacts with <tt class="docutils literal">Prop</tt> and introduces the
+need of some external axiom. This is quite unexpected, as it has nothing to do with
+Barendregt's convention at all, but is a very technical detail of the choice of name
+representation. With Gentzen's style proof induction, one treats proof derivations as
+trees which directly conflicts with the nature of LN-cofinite. It means that the
+choice of name representation is highly non-trivial depending on the problems and the
+use of <tt class="docutils literal">Prop</tt> universe needs to be carefully reviewed.</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>The Locally Nameless Representation, <a class="reference external" href="https://www.chargueraud.org/research/2009/ln/main.pdf">https://www.chargueraud.org/research/2009/ln/main.pdf</a></td></tr>
+</tbody>
+</table>
+</div>
+<script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+            </section>
+
+            <section class="post-info">
+                <div class="post-share">
+                    <a class="twitter" href="https://twitter.com/share?text=A Complement of My Thesis: Naming Conventions and Choice of Proof Assistants&amp;url=/blog/2019/agda-vs-coq.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <i class="ic ic-twitter"></i><span class="hidden">Twitter</span>
+                    </a>
+                    <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=/blog/2019/agda-vs-coq.html" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <i class="ic ic-facebook"></i><span class="hidden">Facebook</span>
+                    </a>
+                    <a class="googleplus" href="https://plus.google.com/share?url=/blog/2019/agda-vs-coq.html" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <i class="ic ic-googleplus"></i><span class="hidden">Google+</span>
+                    </a>
+                    <div class="clear"></div>
+                </div>
+
+                <aside class="post-tags">
+<a href="/blog/tag/dot.html">DOT</a><a href="/blog/tag/programming-languages.html">programming languages</a><a href="/blog/tag/research.html">research</a><a href="/blog/tag/proof-assistants.html">proof assistants</a>                </aside>
+
+                <div class="clear"></div>
+
+
+                </section>
+
+
+                <aside class="post-nav">
+                    <div class="clear"></div>
+                </aside>
+
+            </div>
+        </article>
+    </main>
+      <!-- TODO : Body class -->
+    <div id="body-class" style="display: none;" class=""></div>
+
+    <footer id="footer">
+      <div class="inner">
+        <section class="credits">
+            
+
+            <span class="credits-theme">theme modified based on <a href="https://github.com/arulrajnet/attila" rel="nofollow">Attila</a></span>
+            <span class="credits-software">Published with <a href="https://github.com/getpelican/pelican" rel="nofollow">Pelican</a></span>
+            <span>© Jason Hu All Rights Reserved</span>
+        </section>
+      </div>
+    </footer>
+  </section>
+
+  <script type="text/javascript" src="/blog/theme/js/script.js"></script>
+
+</body>
+</html>

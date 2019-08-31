@@ -1,0 +1,26 @@
+---
+layout: post
+title: A Thought about Languages and Essence of Computation
+categories: blog
+tags: blah languages
+---
+
+“Who am I?” Asks the philosophers. This philosophic problem questions the identity of an individual and one’s
+recognition of the world. Philosophers since ancient Greece use this problem to knock at the door to the essence of
+philosophy. To answer that, however, one has to deliver an expression in the language he speaks. Therefore, language is
+one of the keys that can lead to the truth. In fact, all scientific subjects are eventually about building
+their domain languages. Physics is the general language to describe physical phenomena; algebra is a language to
+abstract the common patterns behind phenomena in different forms; there is no wonder to say computer languages are
+used to describe computer programs, so the definitions of the languages might imply the essence of computation.
+
+“What is computation?” Asks the computer scientists. Unlike the philosophers, computer scientists have to give concrete
+answers to this problem, and those who ever answered, left their names in the history. There are typically two ways of
+looking at computation: as instructions, or as descriptions. Instruction is one of the most spread intuition of
+computation and is generally described using Turing machine. There are variations of Turing machine but essentially,
+there are one tape for data and one table for instructions. The table describes the state transitions of the machine,
+and also manipulates the date in the tape. As long as the data tape extends to infinite on one end, Turing completeness
+is achieved. This perspective is the most common one and the majority of languages are implemented using this
+interpretation. Immediately, we can draw a conclusion just from the state transition table, that the order of execution
+matters, as it determines the state of the machine.
+
+On the other hand, description is a less popular model of computation but equivalently powerful. 

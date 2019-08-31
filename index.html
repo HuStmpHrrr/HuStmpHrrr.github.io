@@ -35,6 +35,19 @@
          body p {
              line-height: 1.6;
          }
+
+         .thesis p {
+             margin: 0
+         }
+
+         .abstract-hideshow {
+             background-color: #32A4D44D;
+             margin: 1rem 0;
+         }
+
+         .abstract-hideshow + p {
+             background-color: #CDD4D74D;
+         }
         </style>
 
     </head>
@@ -98,9 +111,9 @@
                             </h3>
                     <div class="subheading mb-5" id="emails">
                             <a href="mailto:fdhzs2010@hotmail.com">fdhzs2010@hotmail.com(personal)</a>
-                            <a href="mailto:zs2hu@uwaterloo.ca">zs2hu@uwaterloo.ca(school)</a>
+                            <a href="mailto:zhong.s.hu@mail.mcgill.ca">zhong.s.hu@mail.mcgill.ca(school)</a>
                     </div>
-                    <p class="lead mb-5 paragraph">I will soon start my PhD at McGill University in September 2019!<br/>I am currently a grad student at <a href="https://plg.uwaterloo.ca/">University of Waterloo</a>, under the supervision of Professor <a href="https://plg.uwaterloo.ca/~olhotak/">Ondřej Lhoták</a>. Before that, I worked in the industry since 2014. My undergrad was at <a href="http://www.fudan.edu.cn/en/">Fudan University</a>.<br/>These days, I am mainly working on programming languages and formal proofs using proof assistants based on Martin-Löf type theory, e.g. <a href="https://coq.inria.fr/">Coq</a> and <a href="https://agda.readthedocs.io/en/v2.5.4.2/">Agda</a>. I am particularly interested in various type theories and the mathematics behind them. As a purist, I insist that if a proof can be done constructively, then it needs to be; if a mechanized proof can be established, there is no reason not to.<br/>Before heading back to school, I worked as an engineer on a number of projects involving performance engineering, configurations, and others that you might expect to see in the industry. Back in my old days at Fudan University, I was more of a robotic guy.<br/>I am writing up my Master's thesis, titled <a href="https://gitlab.com/JasonHuZS/AlgDotCalculus">Decidability and Algorithmic Analysis of DOT</a>.<br/>I am in support of 996.icu activity <a href="https://996.icu"><img src="https://img.shields.io/badge/link-996.icu-red.svg" alt="996.icu"></a>.</p>
+                    <p class="lead mb-5 paragraph">I am currently a PhD student at <a href="https://www.cs.mcgill.ca/">McGill University</a>, under the supervision of Professor <a href="https://www.cs.mcgill.ca/~bpientka/">Brigitte Pientka</a>.  I did my Master of Mathematics at the <a href="https://plg.uwaterloo.ca/">University of Waterloo</a>, supervised by Professor <a href="https://plg.uwaterloo.ca/~olhotak/">Ondřej Lhoták</a>. Before that, I worked in the industry since 2014. My undergrad was at <a href="http://www.fudan.edu.cn/en/">Fudan University</a>.<br/>These days, I am mainly working on programming languages and formal proofs using proof assistants based on Martin-Löf type theory, e.g. <a href="https://coq.inria.fr/">Coq</a> and <a href="https://agda.readthedocs.io/en/v2.5.4.2/">Agda</a>. I am particularly interested in various type theories and the mathematics behind them. As a purist, I insist that if a proof can be done constructively, then it needs to be; if a mechanized proof can be established, there is no reason not to.<br/>Before heading back to school, I worked as an engineer on a number of projects involving performance engineering, configurations, and others that you might expect to see in the industry. Back in my old days at Fudan University, I was more of a robotic guy.<br/>I am in support of 996.icu activity <a href="https://996.icu"><img src="https://img.shields.io/badge/link-996.icu-red.svg" alt="996.icu"></a>.</p>
                     <div class="social-icons">
                             <a href="https://www.linkedin.com/in/jasonhuzs/">
                                 <i class="fab fa-linkedin"></i>
@@ -129,28 +142,55 @@
 
                         <div class="resume-item d-flex flex-column flex-md-row mb-5">
                             <div class="resume-content mr-auto">
+                                <h3 class="mb-0" style="display: inline; padding-right: 20px">McGill University</h3>
+                                <h4 class="mb=1" style="display: inline">Montreal, QC</h4>
+                                <div class="subheading mb-3">Doctor of Philosophy</div>
+                                <div>Computer Science</div>
+                                <p>Grade: NA</p>
+                            </div>
+                            <div class="resume-date text-md-right">
+                                <span class="text-primary">09 / 2019 - present</span>
+                            </div>
+                        </div>
+                        <div class="resume-item d-flex flex-column flex-md-row mb-5">
+                            <div class="resume-content mr-auto">
                                 <h3 class="mb-0" style="display: inline; padding-right: 20px">University of Waterloo</h3>
                                 <h4 class="mb=1" style="display: inline">Waterloo, ON</h4>
                                 <div class="subheading mb-3">Master of Mathematics</div>
                                 <div>Computer Science</div>
                                 <p>Grade: 94.4/100</p>
-                                    <ul>
-                                            <li>CS 341 Algorithms
-                                            </li>
-                                            <li>CS 745 Computer-Aided Verification
-                                            </li>
-                                            <li>CS 766 Theory of Quantum Information
-                                                    <a href="/asset/pdf/766.pdf">(report)</a>
-                                            </li>
-                                            <li>ECE 653 Software Testing, Quality Assurance and Maintenance
-                                            </li>
-                                            <li>CS 860 Advanced Topics in Algorithms and Complexity
-                                                    <a href="/asset/pdf/860.pdf">(report)</a>
-                                            </li>
-                                    </ul>
+                                    <div class="thesis" style="margin: 1rem 0">
+                                        <p>Thesis:
+                                                <a href="https://uwspace.uwaterloo.ca/handle/10012/14964" style="font-weight: bold">Decidability and Algorithmic Analysis of Dependent Object Types (DOT)</a>
+                                                <a href="https://gitlab.com/JasonHuZS/AlgDotCalculus">(code)</a>
+                                                <a href="/asset/thesis-prep">(slides)</a>
+                                        </p>
+                                            <p>Investigation on (un)decidability and algorithmic properties of the family of DOT calculi</p>
+                                            <div>
+                                                <div class="abstract-hideshow">Abstract</div>
+                                                <p class="paragraph keep-space">Dependent Object Types, or DOT, is a family of calculi developed to study the Scala programming language. These calculi have path dependent types as a feature, and potentially intersection types, union types and recursive types. So far, the study of DOT calculi mostly focuses on the soundness proof, which does not directly contribute to development of compilers. This thesis presents a detailed investigation of decidability and algorithmic properties of the family of DOT calculi.<br/>In decidability analysis, the undecidability of subtyping of several calculi is formally established, including the D<: and D∧ calculi. Prior to this investigation, the undecidability of subtyping of all DOT calculi including D<: was open. Decidability analysis puts emphasis on a particular form of subtyping rules, called normal form. It turns out that a normal form definition is not only as expressive, but also more suggestive than the original definition. A conceptual device, called small-step analysis, is introduced to assist converting a usual definition of subtyping to its normal form definition. Moreover, decidability analysis gives direct contributions to the algorithmic analysis, by revealing two decidable fragments of D<: in declarative form, called the kernels. Decidability analysis also suggests a novel subtyping algorithm framework, stare-at subtyping. Stare-at subtyping and an existing algorithm are shown to be sound and complete w.r.t. their corresponding kernels.<br/>In algorithmic analysis, stare-at subtyping is extended to other calculi, with more features than D<:, including D∧, μDART and jDOT. In μDART and jDOT, bi-directional type assignment algorithms are developed. The algorithms developed in this thesis are all shown to be sound with respect to their target calculi and terminating.<br/>During the development of the algorithms, analysis shows a number of ways in which the Wadlerfest DOT calculus does not directly correspond to the Scala language, while substantially increases the difficulties of algorithmic design. jDOT, therefore, is developed as an alternative formalization of Scala.</p>
+                                            </div>
+                                    </div>
+                                    <div>
+                                        Courses:
+                                        <ul>
+                                                <li>CS 341 Algorithms
+                                                </li>
+                                                <li>CS 745 Computer-Aided Verification
+                                                </li>
+                                                <li>CS 766 Theory of Quantum Information
+                                                        <a href="/asset/pdf/766.pdf">(report)</a>
+                                                </li>
+                                                <li>ECE 653 Software Testing, Quality Assurance and Maintenance
+                                                </li>
+                                                <li>CS 860 Advanced Topics in Algorithms and Complexity
+                                                        <a href="/asset/pdf/860.pdf">(report)</a>
+                                                </li>
+                                        </ul>
+                                    </div>
                             </div>
                             <div class="resume-date text-md-right">
-                                <span class="text-primary">09 / 2017 - present</span>
+                                <span class="text-primary">09 / 2017 - 08 / 2019</span>
                             </div>
                         </div>
                         <div class="resume-item d-flex flex-column flex-md-row mb-5">
@@ -196,6 +236,16 @@
 
                         <div class="resume-item d-flex flex-column flex-md-row mb-5">
                             <div class="resume-content mr-auto">
+                                <h3 class="mb-0" style="display: inline; padding-right: 20px">Oregon Programming Languages Summer School</h3>
+                                <h4 class="mb=1" style="display: inline">student</h4>
+                                    <p class="writing paragraph">with fellowship</p>
+                            </div>
+                                <div class="resume-date text-md-right">
+                                    <span class="text-primary">2019</span>
+                                </div>
+                        </div>
+                        <div class="resume-item d-flex flex-column flex-md-row mb-5">
+                            <div class="resume-content mr-auto">
                                 <h3 class="mb-0" style="display: inline; padding-right: 20px">American Mathematical Society</h3>
                                 <h4 class="mb=1" style="display: inline">student member</h4>
                             </div>
@@ -210,16 +260,6 @@
                             </div>
                                 <div class="resume-date text-md-right">
                                     <span class="text-primary">2018</span>
-                                </div>
-                        </div>
-                        <div class="resume-item d-flex flex-column flex-md-row mb-5">
-                            <div class="resume-content mr-auto">
-                                <h3 class="mb-0" style="display: inline; padding-right: 20px">Oregon Programming Languages Summer School</h3>
-                                <h4 class="mb=1" style="display: inline">student</h4>
-                                    <p class="writing paragraph">with fellowship</p>
-                            </div>
-                                <div class="resume-date text-md-right">
-                                    <span class="text-primary">2019</span>
                                 </div>
                         </div>
                 </div>
@@ -328,6 +368,15 @@
         <!-- Custom scripts for this template -->
         <script src="/js/resume.min.js"></script>
 
+        <script>
+         $(document).ready(function(){
+             $(".abstract-hideshow").click(function(event){
+                 var target = $(event.target);
+                 target.next().toggle("slow");
+             }).next().hide();
+         });
+        </script>
+        
  
     </body>
 
