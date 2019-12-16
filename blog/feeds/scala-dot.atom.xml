@@ -438,7 +438,7 @@ use of &lt;tt class="docutils literal"&gt;Prop&lt;/tt&gt; universe needs to be c
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</content><category term="DOT"></category><category term="programming languages"></category><category term="research"></category><category term="proof assistants"></category></entry><entry><title>Subtyping with Algebra</title><link href="/blog/2019/sub-alg.html" rel="alternate"></link><published>2019-05-12T00:00:00-04:00</published><updated>2019-05-12T00:00:00-04:00</updated><author><name>Jason Hu</name></author><id>tag:None,2019-05-12:/blog/2019/sub-alg.html</id><summary type="html">&lt;p class="first last"&gt;Study subtyping in an algebraic approach!&lt;/p&gt;
+&lt;/script&gt;</content><category term="Scala / DOT"></category><category term="DOT"></category><category term="programming languages"></category><category term="research"></category><category term="proof assistants"></category></entry><entry><title>Subtyping with Algebra</title><link href="/blog/2019/sub-alg.html" rel="alternate"></link><published>2019-05-12T00:00:00-04:00</published><updated>2019-05-12T00:00:00-04:00</updated><author><name>Jason Hu</name></author><id>tag:None,2019-05-12:/blog/2019/sub-alg.html</id><summary type="html">&lt;p class="first last"&gt;Study subtyping in an algebraic approach!&lt;/p&gt;
 </summary><content type="html">&lt;div class="section" id="introduction"&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;When the subtyping relation in a programming language is rich enough, the relation
@@ -669,7 +669,7 @@ one day type theory can be so advanced that even DOT becomes a piece of cake.&lt
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</content><category term="DOT"></category><category term="programming languages"></category><category term="research"></category><category term="type theory"></category><category term="proof assistants"></category></entry><entry><title>Comparison Between Different DOTs</title><link href="/blog/2019/compare-dots.html" rel="alternate"></link><published>2019-03-09T00:00:00-05:00</published><updated>2019-03-09T00:00:00-05:00</updated><author><name>Jason Hu</name></author><id>tag:None,2019-03-09:/blog/2019/compare-dots.html</id><summary type="html">&lt;p class="first last"&gt;A comparison between different versions of Dependent Object Types
+&lt;/script&gt;</content><category term="Scala / DOT"></category><category term="DOT"></category><category term="programming languages"></category><category term="research"></category><category term="type theory"></category><category term="proof assistants"></category></entry><entry><title>Comparison Between Different DOTs</title><link href="/blog/2019/compare-dots.html" rel="alternate"></link><published>2019-03-09T00:00:00-05:00</published><updated>2019-03-09T00:00:00-05:00</updated><author><name>Jason Hu</name></author><id>tag:None,2019-03-09:/blog/2019/compare-dots.html</id><summary type="html">&lt;p class="first last"&gt;A comparison between different versions of Dependent Object Types
 (DOTs). The thought put in this blog might or might not be published in the
 future, but nonetheless something worth mentioning before I entirely forget
 about it.&lt;/p&gt;
@@ -1005,4 +1005,4 @@ difficulties of DOT, I think it would worth the same level of effort.&lt;/p&gt;
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</content><category term="DOT"></category><category term="programming languages"></category><category term="research"></category></entry></feed>
+&lt;/script&gt;</content><category term="Scala / DOT"></category><category term="DOT"></category><category term="programming languages"></category><category term="research"></category></entry></feed>
