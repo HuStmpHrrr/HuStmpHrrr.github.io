@@ -438,7 +438,7 @@ use of &lt;tt class="docutils literal"&gt;Prop&lt;/tt&gt; universe needs to be c
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</content><category term="Scala / DOT"></category><category term="DOT"></category><category term="programming languages"></category><category term="research"></category><category term="proof assistants"></category></entry><entry><title>Subtyping with Algebra</title><link href="/blog/2019/sub-alg.html" rel="alternate"></link><published>2019-05-12T00:00:00-04:00</published><updated>2019-05-12T00:00:00-04:00</updated><author><name>Jason Hu</name></author><id>tag:None,2019-05-12:/blog/2019/sub-alg.html</id><summary type="html">&lt;p class="first last"&gt;Study subtyping in an algebraic approach!&lt;/p&gt;
+&lt;/script&gt;</content><category term="DOT"></category><category term="programming languages"></category><category term="research"></category><category term="proof assistants"></category></entry><entry><title>Subtyping with Algebra</title><link href="/blog/2019/sub-alg.html" rel="alternate"></link><published>2019-05-12T00:00:00-04:00</published><updated>2019-05-12T00:00:00-04:00</updated><author><name>Jason Hu</name></author><id>tag:None,2019-05-12:/blog/2019/sub-alg.html</id><summary type="html">&lt;p class="first last"&gt;Study subtyping in an algebraic approach!&lt;/p&gt;
 </summary><content type="html">&lt;div class="section" id="introduction"&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;When the subtyping relation in a programming language is rich enough, the relation
@@ -669,7 +669,7 @@ one day type theory can be so advanced that even DOT becomes a piece of cake.&lt
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</content><category term="Scala / DOT"></category><category term="DOT"></category><category term="programming languages"></category><category term="research"></category><category term="type theory"></category><category term="proof assistants"></category></entry><entry><title>Comparison Between Different DOTs</title><link href="/blog/2019/compare-dots.html" rel="alternate"></link><published>2019-03-09T00:00:00-05:00</published><updated>2019-03-09T00:00:00-05:00</updated><author><name>Jason Hu</name></author><id>tag:None,2019-03-09:/blog/2019/compare-dots.html</id><summary type="html">&lt;p class="first last"&gt;A comparison between different versions of Dependent Object Types
+&lt;/script&gt;</content><category term="DOT"></category><category term="programming languages"></category><category term="research"></category><category term="type theory"></category><category term="proof assistants"></category></entry><entry><title>Comparison Between Different DOTs</title><link href="/blog/2019/compare-dots.html" rel="alternate"></link><published>2019-03-09T00:00:00-05:00</published><updated>2019-03-09T00:00:00-05:00</updated><author><name>Jason Hu</name></author><id>tag:None,2019-03-09:/blog/2019/compare-dots.html</id><summary type="html">&lt;p class="first last"&gt;A comparison between different versions of Dependent Object Types
 (DOTs). The thought put in this blog might or might not be published in the
 future, but nonetheless something worth mentioning before I entirely forget
 about it.&lt;/p&gt;
@@ -697,18 +697,18 @@ describe a main feature in these calculi to make the problem clearer.&lt;/p&gt;
 &lt;div class="section" id="path-dependent-types"&gt;
 &lt;h3&gt;Path Dependent Types&lt;/h3&gt;
 &lt;p&gt;In Scala, a class can have type members. In DOT, we call it type tags.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="nc"&gt;A&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;:&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;:&lt;/span&gt; &lt;span class="nc"&gt;Bar&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="kd"&gt;val&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;???&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="kt"&gt;A&lt;/span&gt; &lt;span class="k"&gt;&amp;gt;:&lt;/span&gt; &lt;span class="kt"&gt;Foo&lt;/span&gt; &lt;span class="k"&gt;&amp;lt;:&lt;/span&gt; &lt;span class="kt"&gt;Bar&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Foo&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;???&lt;/span&gt;
 &lt;span class="c1"&gt;// then in the future, one may refer to the type inside of Foo&lt;/span&gt;
-&lt;span class="kd"&gt;val&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;A&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;???&lt;/span&gt;
+&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;x.A&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;???&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;In the notation &lt;span class="math"&gt;\(&amp;gt;:\)&lt;/span&gt; means that &lt;cite&gt;Foo&lt;/cite&gt; is some subtype of &lt;cite&gt;A&lt;/cite&gt;, and &lt;span class="math"&gt;\(&amp;lt;:\)&lt;/span&gt;
 means &lt;cite&gt;Bar&lt;/cite&gt; is some supertype of &lt;cite&gt;A&lt;/cite&gt;. Now consider the following piece of code.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kd"&gt;val&lt;/span&gt; &lt;span class="n"&gt;z1&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;???&lt;/span&gt;
-&lt;span class="kd"&gt;val&lt;/span&gt; &lt;span class="n"&gt;z2&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;A&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;z1&lt;/span&gt;
-&lt;span class="kd"&gt;val&lt;/span&gt; &lt;span class="n"&gt;z3&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nc"&gt;Bar&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;z2&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;z1&lt;/span&gt; &lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Foo&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;???&lt;/span&gt;
+&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;z2&lt;/span&gt; &lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;x.A&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;z1&lt;/span&gt;
+&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;z3&lt;/span&gt; &lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Bar&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;z2&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;cite&gt;x.A&lt;/cite&gt; in the second line is what we called &lt;em&gt;path dependent types&lt;/em&gt;. We refer to the
 hidden type inside of the object via member access. This piece of code shows something
@@ -752,9 +752,9 @@ context &lt;span class="math"&gt;\(\Gamma\)&lt;/span&gt; are truncated (but &lt;
 types. Note that in OOPSLA DOT, the typing is done via a variant with a bang
 subscript. This difference will be discussed in the next section.  For the current
 problem, consider the following (strange) program.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nc"&gt;List&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nc"&gt;Any&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
-       &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="nc"&gt;A&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;:&lt;/span&gt; &lt;span class="nc"&gt;List&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nc"&gt;Any&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;:&lt;/span&gt; &lt;span class="nc"&gt;List&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nc"&gt;Nothing&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="p"&gt;})&lt;/span&gt;
-    &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nc"&gt;Nothing&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Any&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;
+       &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt; &lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="kt"&gt;A&lt;/span&gt; &lt;span class="k"&gt;&amp;gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Any&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;&amp;lt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Nothing&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;})&lt;/span&gt;
+    &lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Nothing&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Consider the generic type of &lt;cite&gt;List&lt;/cite&gt; can be accessed via &lt;cite&gt;x.T&lt;/cite&gt;. In Wadlerfest DOT, this
 is a valid program, as witnessed by the following proof.&lt;/p&gt;
@@ -841,19 +841,19 @@ are forced to resolve the multi-inheritance problem, or the compiler will reject
 program. For example, consider the following program.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;trait&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt;
 &lt;span class="k"&gt;trait&lt;/span&gt; &lt;span class="nc"&gt;Bar&lt;/span&gt;
-&lt;span class="k"&gt;trait&lt;/span&gt; &lt;span class="nc"&gt;WrapFoo&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;unwrap&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="k"&gt;trait&lt;/span&gt; &lt;span class="nc"&gt;WrapBar&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;unwrap&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nc"&gt;Bar&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;trait&lt;/span&gt; &lt;span class="nc"&gt;WrapFoo&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt; &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;unwrap&lt;/span&gt; &lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Foo&lt;/span&gt; &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;trait&lt;/span&gt; &lt;span class="nc"&gt;WrapBar&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt; &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;unwrap&lt;/span&gt; &lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Bar&lt;/span&gt; &lt;span class="o"&gt;}&lt;/span&gt;
 &lt;span class="c1"&gt;// ...&lt;/span&gt;
-&lt;span class="kd"&gt;val&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nc"&gt;WrapFoo&lt;/span&gt; &lt;span class="n"&gt;&amp;amp;&lt;/span&gt; &lt;span class="nc"&gt;WrapBar&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;???&lt;/span&gt;
-&lt;span class="kd"&gt;val&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt; &lt;span class="n"&gt;&amp;amp;&lt;/span&gt; &lt;span class="nc"&gt;Bar&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;unwrap&lt;/span&gt;
+&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;WrapFoo&lt;/span&gt; &lt;span class="kt"&gt;&amp;amp;&lt;/span&gt; &lt;span class="kt"&gt;WrapBar&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;???&lt;/span&gt;
+&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Foo&lt;/span&gt; &lt;span class="kt"&gt;&amp;amp;&lt;/span&gt; &lt;span class="kt"&gt;Bar&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;unwrap&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;In Dotty, &lt;cite&gt;&amp;amp;&lt;/cite&gt; denotes the intersection type as shown above as &lt;span class="math"&gt;\(\wedge\)&lt;/span&gt;. This is
 not a problem, because the programmer needs to resolve what type &lt;cite&gt;unwrap&lt;/cite&gt; is supposed
 to have. e.g.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kd"&gt;val&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nc"&gt;WrapFoo&lt;/span&gt; &lt;span class="n"&gt;&amp;amp;&lt;/span&gt; &lt;span class="nc"&gt;WrapBar&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
-  &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;WrapFoo&lt;/span&gt; &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nc"&gt;WrapBar&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;unwrap&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt; &lt;span class="n"&gt;&amp;amp;&lt;/span&gt; &lt;span class="nc"&gt;Bar&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt; &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nc"&gt;Bar&lt;/span&gt;
-  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;WrapFoo&lt;/span&gt; &lt;span class="kt"&gt;&amp;amp;&lt;/span&gt; &lt;span class="kt"&gt;WrapBar&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+  &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;WrapFoo&lt;/span&gt; &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nc"&gt;WrapBar&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;unwrap&lt;/span&gt; &lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Foo&lt;/span&gt; &lt;span class="kt"&gt;&amp;amp;&lt;/span&gt; &lt;span class="kt"&gt;Bar&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt; &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nc"&gt;Bar&lt;/span&gt;
+  &lt;span class="o"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The second point here, is that from &lt;cite&gt;x.unwrap&lt;/cite&gt;, we are able to obtain &lt;cite&gt;Foo &amp;amp; Bar&lt;/cite&gt;,
 which is more specific than any other types.&lt;/p&gt;
@@ -1005,4 +1005,4 @@ difficulties of DOT, I think it would worth the same level of effort.&lt;/p&gt;
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</content><category term="Scala / DOT"></category><category term="DOT"></category><category term="programming languages"></category><category term="research"></category></entry></feed>
+&lt;/script&gt;</content><category term="DOT"></category><category term="programming languages"></category><category term="research"></category></entry></feed>

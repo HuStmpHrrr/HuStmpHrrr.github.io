@@ -168,18 +168,18 @@ describe a main feature in these calculi to make the problem clearer.</p>
 <div class="section" id="path-dependent-types">
 <h3>Path Dependent Types</h3>
 <p>In Scala, a class can have type members. In DOT, we call it type tags.</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foo</span> <span class="p">{</span>
-  <span class="k">type</span> <span class="nc">A</span> <span class="o">&gt;:</span> <span class="nc">Foo</span> <span class="o">&lt;:</span> <span class="nc">Bar</span>
-<span class="p">}</span>
-<span class="kd">val</span> <span class="n">x</span> <span class="p">:</span> <span class="nc">Foo</span> <span class="o">=</span> <span class="o">???</span>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foo</span> <span class="o">{</span>
+  <span class="k">type</span> <span class="kt">A</span> <span class="k">&gt;:</span> <span class="kt">Foo</span> <span class="k">&lt;:</span> <span class="kt">Bar</span>
+<span class="o">}</span>
+<span class="k">val</span> <span class="n">x</span> <span class="k">:</span> <span class="kt">Foo</span> <span class="o">=</span> <span class="o">???</span>
 <span class="c1">// then in the future, one may refer to the type inside of Foo</span>
-<span class="kd">val</span> <span class="n">y</span> <span class="p">:</span> <span class="n">x</span><span class="p">.</span><span class="nc">A</span> <span class="o">=</span> <span class="o">???</span>
+<span class="k">val</span> <span class="n">y</span> <span class="k">:</span> <span class="kt">x.A</span> <span class="o">=</span> <span class="o">???</span>
 </pre></div>
 <p>In the notation <span class="math">\(&gt;:\)</span> means that <cite>Foo</cite> is some subtype of <cite>A</cite>, and <span class="math">\(&lt;:\)</span>
 means <cite>Bar</cite> is some supertype of <cite>A</cite>. Now consider the following piece of code.</p>
-<div class="highlight"><pre><span></span><span class="kd">val</span> <span class="n">z1</span> <span class="p">:</span> <span class="nc">Foo</span> <span class="o">=</span> <span class="o">???</span>
-<span class="kd">val</span> <span class="n">z2</span> <span class="p">:</span> <span class="n">x</span><span class="p">.</span><span class="nc">A</span> <span class="o">=</span> <span class="n">z1</span>
-<span class="kd">val</span> <span class="n">z3</span> <span class="p">:</span> <span class="nc">Bar</span> <span class="o">=</span> <span class="n">z2</span>
+<div class="highlight"><pre><span></span><span class="k">val</span> <span class="n">z1</span> <span class="k">:</span> <span class="kt">Foo</span> <span class="o">=</span> <span class="o">???</span>
+<span class="k">val</span> <span class="n">z2</span> <span class="k">:</span> <span class="kt">x.A</span> <span class="o">=</span> <span class="n">z1</span>
+<span class="k">val</span> <span class="n">z3</span> <span class="k">:</span> <span class="kt">Bar</span> <span class="o">=</span> <span class="n">z2</span>
 </pre></div>
 <p><cite>x.A</cite> in the second line is what we called <em>path dependent types</em>. We refer to the
 hidden type inside of the object via member access. This piece of code shows something
@@ -223,9 +223,9 @@ context <span class="math">\(\Gamma\)</span> are truncated (but <span class="mat
 types. Note that in OOPSLA DOT, the typing is done via a variant with a bang
 subscript. This difference will be discussed in the next section.  For the current
 problem, consider the following (strange) program.</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span> <span class="p">:</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Any</span><span class="p">])</span>
-       <span class="p">(</span><span class="n">y</span> <span class="p">:</span> <span class="p">{</span> <span class="k">type</span> <span class="nc">A</span> <span class="o">&gt;:</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Any</span><span class="p">]</span> <span class="o">&lt;:</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Nothing</span><span class="p">]</span> <span class="p">})</span>
-    <span class="p">:</span> <span class="nc">Nothing</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">head</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="n">foo</span><span class="o">(</span><span class="n">x</span> <span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Any</span><span class="o">])</span>
+       <span class="o">(</span><span class="n">y</span> <span class="k">:</span> <span class="o">{</span> <span class="k">type</span> <span class="kt">A</span> <span class="k">&gt;:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Any</span><span class="o">]</span> <span class="k">&lt;:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Nothing</span><span class="o">]</span> <span class="o">})</span>
+    <span class="k">:</span> <span class="kt">Nothing</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">head</span>
 </pre></div>
 <p>Consider the generic type of <cite>List</cite> can be accessed via <cite>x.T</cite>. In Wadlerfest DOT, this
 is a valid program, as witnessed by the following proof.</p>
@@ -312,19 +312,19 @@ are forced to resolve the multi-inheritance problem, or the compiler will reject
 program. For example, consider the following program.</p>
 <div class="highlight"><pre><span></span><span class="k">trait</span> <span class="nc">Foo</span>
 <span class="k">trait</span> <span class="nc">Bar</span>
-<span class="k">trait</span> <span class="nc">WrapFoo</span> <span class="p">{</span> <span class="k">def</span> <span class="nf">unwrap</span> <span class="p">:</span> <span class="nc">Foo</span> <span class="p">}</span>
-<span class="k">trait</span> <span class="nc">WrapBar</span> <span class="p">{</span> <span class="k">def</span> <span class="nf">unwrap</span> <span class="p">:</span> <span class="nc">Bar</span> <span class="p">}</span>
+<span class="k">trait</span> <span class="nc">WrapFoo</span> <span class="o">{</span> <span class="k">def</span> <span class="n">unwrap</span> <span class="k">:</span> <span class="kt">Foo</span> <span class="o">}</span>
+<span class="k">trait</span> <span class="nc">WrapBar</span> <span class="o">{</span> <span class="k">def</span> <span class="n">unwrap</span> <span class="k">:</span> <span class="kt">Bar</span> <span class="o">}</span>
 <span class="c1">// ...</span>
-<span class="kd">val</span> <span class="n">x</span> <span class="p">:</span> <span class="nc">WrapFoo</span> <span class="n">&amp;</span> <span class="nc">WrapBar</span> <span class="o">=</span> <span class="o">???</span>
-<span class="kd">val</span> <span class="n">y</span> <span class="p">:</span> <span class="nc">Foo</span> <span class="n">&amp;</span> <span class="nc">Bar</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">unwrap</span>
+<span class="k">val</span> <span class="n">x</span> <span class="k">:</span> <span class="kt">WrapFoo</span> <span class="kt">&amp;</span> <span class="kt">WrapBar</span> <span class="o">=</span> <span class="o">???</span>
+<span class="k">val</span> <span class="n">y</span> <span class="k">:</span> <span class="kt">Foo</span> <span class="kt">&amp;</span> <span class="kt">Bar</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">unwrap</span>
 </pre></div>
 <p>In Dotty, <cite>&amp;</cite> denotes the intersection type as shown above as <span class="math">\(\wedge\)</span>. This is
 not a problem, because the programmer needs to resolve what type <cite>unwrap</cite> is supposed
 to have. e.g.</p>
-<div class="highlight"><pre><span></span><span class="kd">val</span> <span class="n">x</span> <span class="p">:</span> <span class="nc">WrapFoo</span> <span class="n">&amp;</span> <span class="nc">WrapBar</span> <span class="o">=</span>
-  <span class="k">new</span> <span class="nc">WrapFoo</span> <span class="k">with</span> <span class="nc">WrapBar</span> <span class="p">{</span>
-    <span class="k">def</span> <span class="nf">unwrap</span> <span class="p">:</span> <span class="nc">Foo</span> <span class="n">&amp;</span> <span class="nc">Bar</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Foo</span> <span class="k">with</span> <span class="nc">Bar</span>
-  <span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="k">val</span> <span class="n">x</span> <span class="k">:</span> <span class="kt">WrapFoo</span> <span class="kt">&amp;</span> <span class="kt">WrapBar</span> <span class="o">=</span>
+  <span class="k">new</span> <span class="nc">WrapFoo</span> <span class="k">with</span> <span class="nc">WrapBar</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="n">unwrap</span> <span class="k">:</span> <span class="kt">Foo</span> <span class="kt">&amp;</span> <span class="kt">Bar</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Foo</span> <span class="k">with</span> <span class="nc">Bar</span>
+  <span class="o">}</span>
 </pre></div>
 <p>The second point here, is that from <cite>x.unwrap</cite>, we are able to obtain <cite>Foo &amp; Bar</cite>,
 which is more specific than any other types.</p>
