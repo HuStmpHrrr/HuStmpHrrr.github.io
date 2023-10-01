@@ -261,7 +261,7 @@
                                 <h4 class="mb-1" style="display: inline">JFP</h4>
                                 <div class="subheading">Jason Hu, Junyoung Jang, Brigitte Pientka</div>
                                 <div>
-                                        <a href="Kripke-style/">(artifact)</a>
+                                        <a href="/Kripke-style/">(artifact)</a>
                                 </div>
                             </div>
                             
@@ -279,7 +279,7 @@
                                 <div class="subheading">Jason Hu and Brigitte Pientka</div>
                                 <div>
                                         <a href="https://doi.org/10.46298/entics.10360">(doi)</a>
-                                        <a href="Kripke-style/">(artifact)</a>
+                                        <a href="/Kripke-style/">(artifact)</a>
                                         <a href="/asset/slides/mfps22.pdf">(slides)</a>
                                         <a class="bibtex" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="@article{hu-mfps22,
   TITLE = {{A Categorical Normalization Proof for the Modal Lambda-Calculus}},
@@ -786,7 +786,7 @@ keywords = {Algorithmic Typing, Dependent Object Types, Undecidability, $D_{<:}$
              $('[data-toggle="tooltip"]').tooltip();
          });
          $(document).ready(function(){
-             $("#publications a.bibtex").click(function(event){
+             $(":is(#publications, #techreports) a.bibtex").click(function(event){
                  var target = $(event.target);
                  var tooltipid = target.attr('aria-describedby');
                  var tooltip = $("#" + tooltipid);
