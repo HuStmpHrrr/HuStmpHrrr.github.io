@@ -443,6 +443,12 @@ publications:
       keywords = {Algorithmic Typing, Dependent Object Types, Undecidability, $D_{<:}$}
       }
 
+patents:
+  - title: Shared Translation Page Tables for Ownership Transfer
+    year: 2026
+    authors: Nathan Chong, Dominic Mulligan, Konrad Slind, Jason Hu
+    link: https://patents.justia.com/patent/12730660
+
 techreports:
   - title: "McTT: Building A Correct-By-Construction Proof Checker For Martin-Löf Type Theory"
     appearance: WITS'25
