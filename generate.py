@@ -15,7 +15,7 @@ parser.add_argument('-o', '--output', type=str,
 def main():
     result = parser.parse_args()
     with open(result.cv) as fd:
-        cv = yaml.load(fd)
+        cv = yaml.safe_load(fd)
 
     env = Environment(loader=FileSystemLoader(os.path.abspath(os.path.join(
         result.template, os.path.pardir))), trim_blocks=True, lstrip_blocks=True)
