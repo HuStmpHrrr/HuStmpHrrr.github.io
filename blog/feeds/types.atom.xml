@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Jason Hu's Blog - Types</title><link href="/blog/" rel="alternate"></link><link href="/blog/feeds/types.atom.xml" rel="self"></link><id>/blog/</id><updated>2022-06-20T00:00:00-04:00</updated><entry><title>Modal Systems in Kripke and Fitch styles</title><link href="/blog/2022/kripke-fitch.html" rel="alternate"></link><published>2022-06-20T00:00:00-04:00</published><updated>2022-06-20T00:00:00-04:00</updated><author><name>Jason Hu</name></author><id>tag:None,2022-06-20:/blog/2022/kripke-fitch.html</id><summary type="html">&lt;p class="first last"&gt;A comparison of formulations of modal type systems in Kripke and Fitch
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Jason Hu's Blog - Types</title><link href="/blog/" rel="alternate"/><link href="/blog/feeds/types.atom.xml" rel="self"/><id>/blog/</id><updated>2022-06-20T00:00:00-04:00</updated><entry><title>Modal Systems in Kripke and Fitch styles</title><link href="/blog/2022/kripke-fitch.html" rel="alternate"/><published>2022-06-20T00:00:00-04:00</published><updated>2022-06-20T00:00:00-04:00</updated><author><name>Jason Hu</name></author><id>tag:None,2022-06-20:/blog/2022/kripke-fitch.html</id><summary type="html">&lt;p class="first last"&gt;A comparison of formulations of modal type systems in Kripke and Fitch
 styles&lt;/p&gt;
 </summary><content type="html">&lt;div class="section" id="summary"&gt;
 &lt;h2&gt;Summary&lt;/h2&gt;
@@ -20,4 +20,4 @@ originally did (he called them generalized contexts). This makes Fitch style mor
 less a historically inaccurate name, at least less accurate than Borghuis style.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;TODO: More Comparison&lt;/strong&gt;&lt;/p&gt;
 &lt;/div&gt;
-</content><category term="Types"></category><category term="modal logic"></category></entry></feed>
+</content><category term="Types"/><category term="modal logic"/></entry></feed>
