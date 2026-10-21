@@ -451,6 +451,36 @@ patents:
     link: https://patents.justia.com/patent/12730660
 
 techreports:
+  - title: "Normalization by Evaluation with Substitutions as Operations"
+    year: 2026
+    authors: Jason Hu
+    doi: https://arxiv.org/abs/2610.21131
+    pdf: https://arxiv.org/pdf/2610.21131
+    bibtex: |
+      @misc{hu2026normalizationevaluationsubstitutionsoperations,
+            title={Normalization by Evaluation with Substitutions as Operations}, 
+            author={Jason Z. S. Hu},
+            year={2026},
+            eprint={2610.21131},
+            archivePrefix={arXiv},
+            primaryClass={cs.PL},
+            url={https://arxiv.org/abs/2610.21131}, 
+      }
+  - title: "Contravariant Universe Subtyping, Formalized, Mechanized"
+    year: 2026
+    authors: Shengyi Jiang and Jason Hu
+    doi: https://arxiv.org/abs/2610.14925
+    pdf: https://arxiv.org/pdf/2610.14925
+    bibtex: |
+      @misc{jiang2026contravariantuniversesubtypingformalized,
+            title={Contravariant Universe Subtyping, Formalized, Mechanized}, 
+            author={Shengyi Jiang and Jason Z. S. Hu},
+            year={2026},
+            eprint={2610.14925},
+            archivePrefix={arXiv},
+            primaryClass={cs.PL},
+            url={https://arxiv.org/abs/2610.14925}, 
+      }
   - title: "McTT: Building A Correct-By-Construction Proof Checker For Martin-Löf Type Theory"
     appearance: WITS'25
     year: 2025
