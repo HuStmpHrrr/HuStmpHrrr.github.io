@@ -458,6 +458,21 @@ patents:
     link: https://patents.justia.com/patent/12730660
       
 techreports:
+  - title: "Sundance: A Simple SMT Solver for Program Verification"
+    year: 2026
+    authors: Amar Shah, Benjamin F. Jones, Can Cebeci, Jason Hu, Lee A. Barnett, Rémi Delmas, Marijn Heule, Bryan Parno and Bruno Dutertre
+    doi: https://arxiv.org/abs/2611.05668
+    pdf: https://arxiv.org/pdf/2611.05668
+    bibtex: |
+      @misc{shah2026sundancesimplesmtsolver,
+            title={Sundance: A Simple SMT Solver for Program Verification}, 
+            author={Amar Shah and Benjamin F. Jones and Can Cebeci and Jason Z. S. Hu and Lee A. Barnett and Rémi Delmas and Marijn Heule and Bryan Parno and Bruno Dutertre},
+            year={2026},
+            eprint={2611.05668},
+            archivePrefix={arXiv},
+            primaryClass={cs.LO},
+            url={https://arxiv.org/abs/2611.05668}, 
+      }
   - title: "Normalization by Evaluation with Substitutions as Operations"
     year: 2026
     authors: Jason Hu
